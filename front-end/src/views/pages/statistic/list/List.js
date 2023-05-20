@@ -1,33 +1,20 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useEffect, useState } from "react"
-
+import axiosInstance from 'functions/AxiosInstance';
 
 
 export default function List() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    getCarRegistrationNumber();
+    getCarOwner();
 
   }, []);
 
-  const getCarRegistrationNumber = async () => {
-    let response0 = await axios({
-
-      method: 'post',
-      url: "http://localhost:3010/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
-    const token = response0.data.result;
-    console.log("token here", response0);
-
-    let response = await axios({
+  const getCarOwner = async () => {
+    let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token,
       },
       method: 'post',
       url: "http://localhost:3010/account/login",
@@ -35,7 +22,7 @@ export default function List() {
         username: 'admin',
         password: 'abc123'
       },
-    });
+    })
     setData(response.data.owners);
 
     console.log("check dataOwners", data);
@@ -60,11 +47,11 @@ export default function List() {
       field: "registration_number",
       headerName: "Mã đăng kiểm",
       width: 150,
-    },
+    }
   ];
   return (
 
-    <div style={{ height: 600, width: '100%' }} className='userList'>
+    <div style={{ height: 600, width: '100%' }}>
       <DataGrid
         rows={data}
         columns={columns}
