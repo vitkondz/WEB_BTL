@@ -1,11 +1,13 @@
 import Chart from "../../../components/chart/Chart";
 
 import "./Analysis.css";
-
+import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Filter from "../../../components/filter/Filter";
 import filter from "../../../functions/timeFiler";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "views/AxiosInstance";
 
 
 export default function Analysis(props) {
@@ -17,37 +19,25 @@ export default function Analysis(props) {
   const [province, setProvince] = useState(false)
   const [year, setYear] = useState(2022)
   const [center, setCenter] = useState(false)
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCarRegistrationNumber();
   }, [area, province, year, center]);
 
   const getCarRegistrationNumber = async () => {
-    let response0 = await axios({
-      
-      method: 'post',
-      url: "http://localhost:3010/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
-    const token = response0.data.result;
-
-    let response = await axios({
+    console.log(JSON.parse(Cookies.get('info')).center_id);
+    let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token, 
       },
-      method: 'post',
-      url: "http://localhost:3010/account/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
+      method: 'get',
+      url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
+      // url: `http://localhost:3010/statistics/VN0000`,
 
-    });
+    })
+    console.log(JSON.parse(Cookies.get('info')).center_id);
+
     console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
     setQuarterData(await filter(response.data.registrations, response.data.center, year, true, center, province, area));

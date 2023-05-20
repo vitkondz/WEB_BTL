@@ -2,7 +2,6 @@ import * as React from 'react';
 import './Filter.css'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import Stack from "@mui/material/Stack";
 import { useState } from 'react';
 
 export default function Filter(props) {
