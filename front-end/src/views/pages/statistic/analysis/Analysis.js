@@ -26,15 +26,26 @@ export default function Analysis(props) {
   }, [area, province, year, center]);
 
   const getCarRegistrationNumber = async () => {
-    console.log(JSON.parse(Cookies.get('info')).center_id);
+    console.log("check info", JSON.parse(Cookies.get('info')));
+    // let response = await axiosInstance({
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: 'get',
+    //   url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
+    //   // url: `http://localhost:3010/statistics/VN0000`,
+
+    // })
     let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
       },
-      method: 'get',
-      url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
-      // url: `http://localhost:3010/statistics/VN0000`,
-
+      method: 'post',
+      url: "http://localhost:3010/account/login",
+      data: {
+        username: 'admin',
+        password: 'abc123'
+      },
     })
     console.log(JSON.parse(Cookies.get('info')).center_id);
 
