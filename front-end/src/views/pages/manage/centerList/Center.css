@@ -1,0 +1,7 @@
+.centerList {
+  flex: 4;
+  padding: 5px;
+}
+.btn_round {
+  cursor: pointer;
+}

@@ -1,11 +1,11 @@
-import Chart from "../../../components/chart/Chart";
+import Chart from "components/chart/Chart";
 
 import "./Analysis.css";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Filter from "../../../components/filter/Filter";
-import filter from "../../../functions/timeFiler";
+import filter from "functions/timeFiler";
+import Filter from "components/filter/Filter";
 
 
 export default function Analysis(props) {
@@ -48,6 +48,7 @@ export default function Analysis(props) {
       },
 
     });
+    console.log("check response", response);
     console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
     setQuarterData(await filter(response.data.registrations, response.data.center, year, true, center, province, area));
