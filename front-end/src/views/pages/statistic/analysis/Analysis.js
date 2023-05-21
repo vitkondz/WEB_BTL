@@ -7,6 +7,7 @@ import Filter from "components/filter/Filter";
 import filter from "functions/timeFiler";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "functions/AxiosInstance";
+import FilterForUser from "components/filter/FilterForUser";
 
 
 export default function Analysis(props) {
@@ -18,7 +19,6 @@ export default function Analysis(props) {
   const [province, setProvince] = useState(false)
   const [year, setYear] = useState(2022)
   const [center, setCenter] = useState(false)
-  const navigate = useNavigate();
 
   useEffect(() => {
     getCarRegistrationNumber();
@@ -43,22 +43,30 @@ export default function Analysis(props) {
 
   return (
     <div className="home">
-      <Filter
-        setArea={setArea}
-        setProvince={setProvince}
-        setYear={setYear}
-        setCenter={setCenter}
-      />
+      {
+        (Cookies.get('info')) && JSON.parse(Cookies.get('info')).type_of_account === 'admin' ?
+          <Filter
+            setArea={setArea}
+            setProvince={setProvince}
+            setYear={setYear}
+            setCenter={setCenter}
+          />
+          :
+          <FilterForUser
+            setYear={setYear}
+          />
+      }
       <div>Check Area: {area}</div>
       <div>Check Province: {province}</div>
       <div>Check Year: {year}</div>
       <div>Check Center: {center}</div>
-      {/* <FeaturedInfo /> */}
-      <Chart data={yearData} title="Years Analytics" grid dataKey="quantity" kind="year" />
+
+      
       <div>
-        <Chart data={quarterData} title="Quarters Analytics" grid dataKey="quantity" kind="quarter" />
-        <Chart data={monthData} title="Months Analytics" grid dataKey="quantity" kind="month" />
+        <Chart year={year !== 0 ? year : ' '} data={monthData} title="Thống kê theo tháng" grid dataKey="quantity" kind="month" />  
+        <Chart year={year !== 0 ? year : ' '} data={quarterData} title="Thống kê theo quý" grid dataKey="quantity" kind="quarter" />
       </div>
+      <Chart year={' '} data={yearData} title="Thống kê theo các năm" grid dataKey="quantity" kind="year" />
     </div>
   );
 }

@@ -4,32 +4,12 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useState } from 'react';
 
-export default function Filter(props) {
+export default function FilterForUser(props) {
 
     return (
         <div className='filter'>
-            <Autocomplete
-                onInputChange={(event, newInputValue) => {
-                    props.setArea(newInputValue)
-                    
-                }}
-                disablePortal
-                id="combo-box-demo"
-                options={area}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Vùng miền" variant="standard" />}
-            />
-            <Autocomplete
-                onInputChange={(event, newInputValue) => {
-                    props.setProvince(newInputValue);
-                    
-                }}
-                disablePortal
-                id="combo-box-demo"
-                options={province}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Tỉnh thành" variant="standard" />}
-            />
+            
+            
             <Autocomplete
                 onInputChange={(event, newInputValue) => {
                     props.setYear(+newInputValue);
@@ -41,17 +21,7 @@ export default function Filter(props) {
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Năm" variant="standard" />}
             />
-            <Autocomplete
-                onInputChange={(event, newInputValue) => {
-                    props.setCenter(newInputValue);
-                    
-                }}
-                disablePortal
-                id="combo-box-demo"
-                options={center}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} label="Trung tâm" variant="standard" />}
-            />
+            
 
         </div>
     );
@@ -92,4 +62,3 @@ const center = [
     {label: 'VN0007'},
     {label: 'VN0008'},
 ]
-
