@@ -13,12 +13,21 @@ class NDODatabase {
     });
   }
 
-  async get(query, values) {
+  async get(queries, values) {
     const connection = await this.pool.getConnection();
     try {
-      const [rows, fields] = await connection.execute(query, values);
-      return rows;
+      await connection.beginTransaction(); // Bắt đầu giao dịch
+
+      let kq = [];
+      for (let i = 0; i < queries.length; i++) {
+        const [rows, fields] = await connection.execute(queries[i], values[i]);
+        kq.push(rows);
+      }
+      
+      await connection.commit(); // Commit giao dịch
+      return kq;
     } catch (error) {
+      await connection.rollback(); // Rollback giao dịch
       console.log(error);
       throw error;
     } finally {
@@ -26,12 +35,19 @@ class NDODatabase {
     }
   }
 
-  async set(query, values) {
+  async set(queries, values) {
     const connection = await this.pool.getConnection();
     try {
-      await connection.execute(query, values);
+      await connection.beginTransaction(); // Bắt đầu giao dịch
+
+      for (let i = 0; i < queries.length; i++) {
+        await connection.execute(queries[i], values[i]);
+      }
+      
+      await connection.commit(); // Commit giao dịch
       return true;
     } catch (error) {
+      await connection.rollback(); // Rollback giao dịch
       console.log(error);
       throw error;
     } finally {
@@ -40,4 +56,5 @@ class NDODatabase {
   }
 }
 
-module.exports = NDODatabase;
+const ndoDatabase = new NDODatabase();
+module.exports = ndoDatabase;

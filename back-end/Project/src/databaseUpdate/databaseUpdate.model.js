@@ -1,4 +1,4 @@
-const NDODatabase = require('../common/NDODatabase');
+const database = require('../common/NDODatabase');
 
 class DatabaseUpdate {
    constructor(DatabaseUpdate) {
@@ -11,8 +11,8 @@ class DatabaseUpdate {
             let number_plate = await registrations[i].number_plate;
             let check = await numberPlateCheck(number_plate);
             if (check === true) {
-                let database = new NDODatabase();
-
+                let queries = [];
+                let values = [];
                 let newCarInfo = [
                     registrations[i].registration_number,
                     registrations[i].number_plate,
@@ -25,7 +25,8 @@ class DatabaseUpdate {
                     registrations[i].owner_id
                 ];
                 let query2 = "INSERT into car_information (registration_number, number_plate, car_name, province, date_registered, brand, purpose_of_use, owner_name, owner_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                database.set(query2, newCarInfo);
+                queries.push(query2);
+                values.push(newCarInfo);
 
                 let newOwnerInfo = [
                     registrations[i].registration_number,
@@ -36,8 +37,15 @@ class DatabaseUpdate {
                     registrations[i].contact_number,
                 ];
                 let query3 = "INSERT into owner_information (registration_number, owner_name, type_of_ownership, owner_address, contact_number, owner_id) values (?, ?, ?, ?, ?, ?)";
-                database.set(query3, newOwnerInfo);
-                result({result: true});
+                queries.push(query3);
+                values.push(newOwnerInfo);
+                database.set(queries, values)
+                .then((res) => {
+                    result({result: true});
+                })
+                .catch((err) => {
+                    result({result: false, error: err.message});
+                })
             } else {
                 result({result: false, error: check});
             }
@@ -100,11 +108,16 @@ class DatabaseUpdate {
 async function numberPlateCheck(number_plate) {
     return new Promise(async (resolve, reject) => {
         try {
-            let database = new NDODatabase();
+            let queries = [];
+            let values = [];
+
             let query = "SELECT * FROM registration_information";
-            const data = await database.get(query, []);
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].number_plate === number_plate) {
+            queries.push(query);
+            values.push([]);
+
+            const data = await database.get(queries, values);
+            for (let i = 0; i < data[0].length; i++) {
+                if (data[0][i].number_plate === number_plate) {
                     resolve(false);
                 }
             }

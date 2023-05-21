@@ -1,15 +1,19 @@
-const NDODatabase = require('../common/NDODatabase');
+const database = require('../common/NDODatabase');
 
 class AccountChange {
     static userUpdate(data, result) {
-        let database = new NDODatabase();
+        let queries = [];
+        let values = [];
+
         let center_id = data.center_id;
         let newCenterName = data.center_name;
         let newProvince = data.province;
         let newArea = data.area;
         let query = "update center_information set center_name=?, province=?, area=? where center_id = ?";
-        let values = [newCenterName, newProvince, newArea, center_id];
-        database.set(query, values)
+        let value = [newCenterName, newProvince, newArea, center_id];
+        queries.push(query);
+        values.push(value);
+        database.set(queries, values)
         .then((res) => {
             result({result: true});
         })

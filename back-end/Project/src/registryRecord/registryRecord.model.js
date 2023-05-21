@@ -1,9 +1,10 @@
-const NDODatabase = require('../common/NDODatabase');
+const database = require('../common/NDODatabase');
 
 class RegistryRecord {
     constructor(registryRecord) {}
     static async registryUpdate(data, result) {
-        let database = new NDODatabase();
+        let queries = [];
+        let values = []
 
         let registration_number = data.registration_number;
         let number_plate = data.number_plate;
@@ -15,8 +16,10 @@ class RegistryRecord {
         let center_id = data.center_id;
         let registry_code = data.registry_code;
         let query = "insert into registration_information (registration_number, number_plate, owner_name, owner_id, date_issued, date_expired, center_name, center_id, registry_code) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        let values = [registration_number, number_plate, owner_name, owner_id, date_issued, date_expired, center_name, center_id, registry_code];
-        database.set(query, values)
+        let value = [registration_number, number_plate, owner_name, owner_id, date_issued, date_expired, center_name, center_id, registry_code];
+        queries.push(query);
+        values.push(value);
+        database.set(queries, values)
         .then((res) => {
             result({result: true});
         })

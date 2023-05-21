@@ -1,4 +1,4 @@
-const NDODatabase = require("../common/NDODatabase");
+const database = require("../common/NDODatabase");
 const bcrypt = require('bcrypt');
 const JWT = require('../common/_JWT');
 
@@ -6,14 +6,17 @@ class Login {
     constructor(login) {}
 
     static async accountCheck(data, result) {
-        let database = new NDODatabase();
+        let queries = [];
+        let values = [];
         let username = data.username;
         let pass = data.password;
         let query = "SELECT * FROM account_list WHERE account =?";
-        let values = [username];
+        let value = [username];
+        queries.push(query);
+        values.push(value);
         
-        database.get(query, values).then((account_list) => {    
-            let user = account_list[0];
+        database.get(queries, values).then((res) => {    
+            let user = res[0][0];
             bcrypt.compare(pass, user.password, async function (err, kq) {
                 if (err) {
                     result({result: false, error: err});
@@ -23,12 +26,22 @@ class Login {
                         password: user.password,
                     };
                     const _token = await JWT.make(account);
+                    let queries = [];
+                    let values = [];
+
                     query = "SELECT * FROM center_information WHERE center_id=?";
-                    values = [user.unit_id];
-                    database.get(query, values).then((center_list) => {
-                        let centerInfo = center_list[0];
+                    value = [user.unit_id];
+                    queries.push(query);
+                    values.push(value);
+
+                    database.get(queries, values)
+                    .then((res) => {
+                        let centerInfo = res[0][0];
                         centerInfo.type_of_account = user.type_of_account;
                         result({result: _token, centerInfo: centerInfo});
+                    })
+                    .catch((err) => {
+                        result({result: false, error: err.message});
                     })
                 } else {
                     result({result: false});
