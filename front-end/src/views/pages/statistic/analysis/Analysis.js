@@ -3,7 +3,6 @@ import Chart from "components/chart/Chart";
 import "./Analysis.css";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Filter from "components/filter/Filter";
 import filter from "functions/timeFiler";
 import { useNavigate } from "react-router-dom";
@@ -26,33 +25,18 @@ export default function Analysis(props) {
   }, [area, province, year, center]);
 
   const getCarRegistrationNumber = async () => {
-    console.log("check info", JSON.parse(Cookies.get('info')));
-    // let response = await axiosInstance({
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: 'get',
-    //   url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
-    //   // url: `http://localhost:3010/statistics/VN0000`,
-
-    // })
     let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
       },
-      method: 'post',
-      url: "http://localhost:3010/account/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
+      method: 'get',
+      url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
+
     })
-    console.log(JSON.parse(Cookies.get('info')).center_id);
 
     console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
     setQuarterData(await filter(response.data.registrations, response.data.center, year, true, center, province, area));
-
     setYearData(await filter(response.data.registrations, response.data.center, true, false, center, province, area));
 
   }

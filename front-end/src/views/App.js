@@ -18,6 +18,7 @@ import Login from "views/pages/Login";
 import Statistic from "views/pages/statistic/Statistic";
 import ProtectedRoute from "views/ProtectedRoute";
 import CenterInfo from "./pages/manage/centerInfo/CenterInfo";
+import UserRoute from "views/UserRoute";
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const App = () => {
@@ -33,14 +34,16 @@ const App = () => {
             <Route index element={<Analysis />} />
             <Route path="analysis" element={<Analysis />} />
             <Route path="list" element={<List />} />
-            <Route path="warning" element={<Warning />} />
+            <Route element={<UserRoute />}>
+              <Route path="warning" element={<Warning />} />
+            </Route>
           </Route>
           <Route
             path="manage"
             element={<Manage />}
           >
             <Route path="center" element={<Center />} />
-            <Route path="center/:centerId" element={<CenterInfo/>} />
+            <Route path="center/:centerId" element={<CenterInfo />} />
           </Route>
         </Route>
 
