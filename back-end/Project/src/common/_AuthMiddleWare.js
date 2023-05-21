@@ -9,14 +9,12 @@ let isAuth = async function(req, res, next) {
             req.auth = authData;
             next();
         } catch(err) {
-            res.sendStatus(403);
-            
+            res.sendStatus(403)
         }
     } else {
         res.sendStatus(401);
-
     }
-}   
+}
 
 module.exports = {
     isAuth:isAuth

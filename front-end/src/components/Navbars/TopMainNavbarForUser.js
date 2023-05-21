@@ -52,7 +52,7 @@ function TopMainNavbar() {
                             target="_blank"
                             id="navbar-brand"
                         >
-                            {JSON.parse(Cookies.get('info')).center_name}
+                            {JSON.parse(Cookies.get('info')).province}
                         </NavbarBrand>
                         <UncontrolledTooltip target="#navbar-brand">
                             {JSON.parse(Cookies.get('info')).center_name}</UncontrolledTooltip>
