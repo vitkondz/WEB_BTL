@@ -22,6 +22,7 @@ export default function List() {
     setData(response.data.owners);
 
     console.log("check dataOwners", data);
+    console.log("check data", response.data.owners)
 
   }
 

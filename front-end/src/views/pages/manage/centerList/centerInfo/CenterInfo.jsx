@@ -1,7 +1,8 @@
 import "./CenterInfo.css";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
-import axios from 'axios';
+import axiosInstance from "functions/AxiosInstance";
+import Cookies from "js-cookie";
 import { Button} from 'reactstrap';
 
 function CenterInfo() {
@@ -14,28 +15,13 @@ function CenterInfo() {
   }, [centerId]);
 
   const getCenterInfo = async () => {
-    let response0 = await axios({
-      method: 'post',
-      url: "http://localhost:3010/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
-    const token = response0.data.result;
-
-    let response = await axios({
+    let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token,
       },
-      method: 'post',
-      url: "http://localhost:3010/account/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
+      method: 'get',
+      url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
+    })
     let center = response.data.center;
     let data0 = center.find((center) => center.center_id === centerId);
 

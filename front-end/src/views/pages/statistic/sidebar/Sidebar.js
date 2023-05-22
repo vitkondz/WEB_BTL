@@ -39,10 +39,10 @@ function Sidebar() {
                   Danh sách
                 </li>
               </NavLink>
-              <NavLink to="warning" tag={Link} onClick={() => handleNavLinkClick()}>
+              <NavLink to="forecast" tag={Link} onClick={() => handleNavLinkClick()}>
                 <li className="sidebarListItem">
                   <i className="sidebarIcon now-ui-icons education_atom"></i>
-                  Cảnh báo
+                  Dự báo
                 </li>
               </NavLink>
             </ul>

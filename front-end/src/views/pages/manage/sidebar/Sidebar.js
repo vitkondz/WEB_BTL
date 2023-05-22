@@ -10,10 +10,10 @@ function Sidebar() {
           <div className="sidebarMenu">
             <h3 className="sidebarTitle">Quản lý</h3>
             <ul className="sidebarList">
-              <NavLink to="#" tag={Link}>
+              <NavLink to="data" tag={Link}>
                 <li className="sidebarListItem">
                   <i className="sidebarIcon now-ui-icons business_chart-bar-32"></i>
-                  Giấy phép
+                  Dữ liệu
                 </li>
               </NavLink>
               <NavLink to="center" tag={Link}>
@@ -22,10 +22,10 @@ function Sidebar() {
                   Trung tâm
                 </li>
               </NavLink>
-              <NavLink to="#" tag={Link}>
+              <NavLink to="account" tag={Link}>
                 <li className="sidebarListItem">
                   <i className="sidebarIcon now-ui-icons education_atom"></i>
-                  Dữ liệu
+                  Tài khoản
                 </li>
               </NavLink>
             </ul>

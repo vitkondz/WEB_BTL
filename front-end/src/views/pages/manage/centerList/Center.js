@@ -1,43 +1,43 @@
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import axios from 'axios';
 import React, { useEffect, useState } from "react"
-import { Button, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axiosInstance from 'functions/AxiosInstance';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  NavLink
+} from "reactstrap";
 import "./Center.css";
 
 function Center() {
+  const [modal1, setModal1] = React.useState(false);
+
   const [data, setData] = useState([]);
+  const [dataCenter, setDataCenter] = useState([]);
+  const [dataTotal, setDataTotal] = useState([]);
   useEffect(() => {
     getCenter();
 
   }, []);
 
   const getCenter = async () => {
-    let response0 = await axios({
-      method: 'post',
-      url: "http://localhost:3010/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
-    const token = response0.data.result;
-    
-    let response = await axios({
+    let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token,
       },
-      method: 'post',
-      url: "http://localhost:3010/account/login",
-      data: {
-        username: 'admin',
-        password: 'abc123'
-      },
-    });
+      method: 'get',
+      url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
+    })
     setData(response.data.center);
-  } 
+    setDataTotal(response.data.center);
+  }
+
+  const updateDataCenter = (centerId) => {
+    let data0 = dataTotal.find((center) => center.center_id === centerId);
+    setDataCenter(data0);
+  }
   const columns = [
     { field: "center_id", headerName: "ID", width: 115 },
     { field: "center_name", headerName: "Trung tâm", width: 300 },
@@ -53,12 +53,45 @@ function Center() {
       width: 125,
       renderCell: (params) => {
         return (
-          <div className='detail'>
-            <NavLink to={"/manage/center/" + params.row.center_id} tag={Link}>
+          <div className='detailModal'>
+            {/* <NavLink to={"/manage/center/" + params.row.center_id} tag={Link}>
               <Button className="btn-round" color="info" type="button">
                 Detail
             </Button>
-            </NavLink>
+            </NavLink> */}
+            <Button
+              color="info"
+              className="btn-round"
+              type="button"
+              onClick={() => {
+                updateDataCenter(params.row.center_id);
+                setModal1(true);
+              }}
+            >
+              Detail
+            </Button>
+            <Modal isOpen={modal1} toggle={() => setModal1(false)}>
+              <div className="modal-header justify-content-center">
+                <h4 className="title title-up">{dataCenter.center_name}</h4>
+              </div>
+              <ModalBody>
+                <p>
+                  <div><b>Mã trung tâm: {dataCenter.center_id}</b></div>
+                  <div><b>Tỉnh thành: {dataCenter.province}</b> </div>
+                  <div><b>Khu vực: {dataCenter.area}</b> </div>
+                </p>
+              </ModalBody>
+              <div className="modal-footer">
+                <span></span>
+                <Button
+                  color="danger"
+                  type="button"
+                  onClick={() => setModal1(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </Modal>
           </div>
         )
       }
