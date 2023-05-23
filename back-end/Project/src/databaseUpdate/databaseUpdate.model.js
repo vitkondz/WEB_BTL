@@ -6,7 +6,8 @@ class DatabaseUpdate {
 
    static async registrationUpdate(data, result) {
         let registrations = data.registrations;
-
+        let results = [];
+        // console.log(registrations.length);
         for (let i = 0; i < registrations.length; i++) {
             let number_plate = await registrations[i].number_plate;
             let check = await numberPlateCheck(number_plate);
@@ -39,17 +40,19 @@ class DatabaseUpdate {
                 let query3 = "INSERT into owner_information (registration_number, owner_name, type_of_ownership, owner_address, contact_number, owner_id) values (?, ?, ?, ?, ?, ?)";
                 queries.push(query3);
                 values.push(newOwnerInfo);
-                database.set(queries, values)
+                await database.set(queries, values)
                 .then((res) => {
-                    result({result: true});
+                    results.push(true);
                 })
                 .catch((err) => {
-                    result({result: false, error: err.message});
+                    console.log(i);
+                    results.push(err.message);
                 })
             } else {
-                result({result: false, error: check});
+                results.push(check);
             }
         }
+        result({result: results});
        // Registration.checkRegistrationValid(data, function (response) {
        //     if (response === true) {
        //         //Tách dữ liệu thành 3 phần tương ứng với 3 cở sử dữ liệu: thông tin đăng kiểm, thông tin xe, thông tin chủ sở hữu
