@@ -62,9 +62,11 @@ function Account() {
         <h2>
           Quản lý tài khoản
           <span>
-            <Button className="btn-round createButton" color="info" type="button">
+              <Button className="btn-round createButton" color="info" type="button"
+                to="/manage/create" tag={Link}
+              >
               Cấp tài khoản
-            </Button>
+            </Button>            
           </span>
         </h2>
 

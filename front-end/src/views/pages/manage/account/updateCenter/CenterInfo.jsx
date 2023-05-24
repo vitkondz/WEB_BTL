@@ -72,6 +72,12 @@ function CenterInfo() {
             >
               <i className="now-ui-icons objects_key-25 iconPos"></i>
               Đổi mật khẩu
+            </Button><br />
+            <Button className="btn-round" color="primary" type="button"
+              onClick={() => alert("Confirm delete account")}
+            >
+              <i className="now-ui-icons objects_key-25 iconPos"></i>
+              Xóa tài khoản
             </Button>
           </div>
 
@@ -81,11 +87,10 @@ function CenterInfo() {
             <div className="editContainer">
               <p className="category">Chỉnh sửa thông tin trung tâm</p>
               <Col lg="6" sm="3">
-                <div className="label">Mã trung tâm</div>
+                <div className="label">Tên trung tâm</div>
                 <FormGroup>
                   <Input
-                    defaultValue=""
-                    placeholder={data.center_id}
+                    placeholder={data.center_name}
                     type="text"
                   ></Input>
                 </FormGroup>
@@ -94,7 +99,6 @@ function CenterInfo() {
                 <div className="label">Tỉnh thành</div>
                 <FormGroup>
                   <Input
-                    defaultValue=""
                     placeholder={data.province}
                     type="text"
                   ></Input>
@@ -104,7 +108,6 @@ function CenterInfo() {
                 <div className="label">Khu vực</div>
                 <FormGroup>
                   <Input
-                    defaultValue=""
                     placeholder={data.area}
                     type="text"
                   ></Input>

@@ -54,11 +54,6 @@ function Center() {
       renderCell: (params) => {
         return (
           <div className='detailModal'>
-            {/* <NavLink to={"/manage/center/" + params.row.center_id} tag={Link}>
-              <Button className="btn-round" color="info" type="button">
-                Detail
-            </Button>
-            </NavLink> */}
             <Button
               color="info"
               className="btn-round"

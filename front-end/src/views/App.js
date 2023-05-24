@@ -23,6 +23,7 @@ import Account from "./pages/manage/account/Account";
 import CenterInfo from "./pages/manage/account/updateCenter/CenterInfo";
 import CSV from "./pages/manage/csv/CSV";
 import AdminRoute from "./AdminRoute";
+import CreateAccount from "./pages/manage/account/createAccount/CreateAccount";
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -46,11 +47,12 @@ const App = () => {
             path="manage"
             element={<Manage />}
           >
-            <Route element={<AdminRoute/>}>
+            <Route element={<AdminRoute />}>
               <Route path="data" element={<CSV />} />
             </Route >
             <Route path="center" element={<Center />} />
             <Route path="account" element={<Account />} />
+            <Route path="create" element={<CreateAccount />} />
             <Route path="account/:centerId" element={<CenterInfo />} />
           </Route>
         </Route>
