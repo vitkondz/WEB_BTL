@@ -12,19 +12,19 @@ function Sidebar() {
             <ul className="sidebarList">
               <NavLink to="data" tag={Link}>
                 <li className="sidebarListItem">
-                  <i className="sidebarIcon now-ui-icons business_chart-bar-32"></i>
+                  <i className="sidebarIcon now-ui-icons arrows-1_cloud-upload-94"></i>
                   Dữ liệu
                 </li>
               </NavLink>
               <NavLink to="center" tag={Link}>
                 <li className="sidebarListItem">
-                  <i className="sidebarIcon now-ui-icons files_paper"></i>
+                  <i className="sidebarIcon now-ui-icons business_badge"></i>
                   Trung tâm
                 </li>
               </NavLink>
               <NavLink to="account" tag={Link}>
                 <li className="sidebarListItem">
-                  <i className="sidebarIcon now-ui-icons education_atom"></i>
+                  <i className="sidebarIcon now-ui-icons users_single-02"></i>
                   Tài khoản
                 </li>
               </NavLink>
