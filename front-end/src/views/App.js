@@ -16,13 +16,14 @@ import Center from "views/pages/manage/centerList/Center";
 import Login from "views/pages/Login";
 import Statistic from "views/pages/statistic/Statistic";
 import ProtectedRoute from "views/ProtectedRoute";
-import CenterInfo from "./pages/manage/centerList/centerInfo/CenterInfo";
 import UserRoute from "views/UserRoute";
 import { dividerClasses } from "@mui/material";
 import Forecast from "./pages/statistic/forecast/Forecast";
 import Account from "./pages/manage/account/Account";
+import CenterInfo from "./pages/manage/account/updateCenter/CenterInfo";
 import CSV from "./pages/manage/csv/CSV";
 import AdminRoute from "./AdminRoute";
+
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const App = () => {
@@ -49,8 +50,8 @@ const App = () => {
               <Route path="data" element={<CSV />} />
             </Route >
             <Route path="center" element={<Center />} />
-            <Route path="center/:centerId" element={<CenterInfo />} />
             <Route path="account" element={<Account />} />
+            <Route path="account/:centerId" element={<CenterInfo />} />
           </Route>
         </Route>
 
