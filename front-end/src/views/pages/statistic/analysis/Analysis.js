@@ -56,10 +56,10 @@ export default function Analysis(props) {
             setYear={setYear}
           />
       }
-      <div>Check Area: {area}</div>
+      {/* <div>Check Area: {area}</div>
       <div>Check Province: {province}</div>
       <div>Check Year: {year}</div>
-      <div>Check Center: {center}</div>
+      <div>Check Center: {center}</div> */}
 
       
       <div>
