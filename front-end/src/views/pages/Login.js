@@ -50,8 +50,12 @@ const Login = () => {
           Cookies.set('jwt', res.data.result);
           Cookies.set('info', JSON.stringify(res.data.centerInfo));
           // console.log(JSON.parse(Cookies.get('info')).center_id);
-
-          navigate('/');
+          if (JSON.parse(Cookies.get('info')).type_of_account === 'admin') {
+            navigate('/');
+          } else {
+            navigate('/track');
+          }
+          
 
         }
         else {
