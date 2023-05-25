@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const _APP = require('./_APP');
 
+// Ham tao token moi
 let make = function (user) {
     return new Promise(function (resolve, reject) {
         jwt.sign({data: user}, _APP.ACCESS_TOKEN, {
@@ -16,6 +17,8 @@ let make = function (user) {
     });
 }
 
+
+// Ham kiem tra token
 let check = function(token) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, _APP.ACCESS_TOKEN, function(err, data) {

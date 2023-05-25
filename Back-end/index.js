@@ -34,13 +34,6 @@ require('./src/statistics/statistics.router')(app);
 require('./src/registryRecord/registryRecord.router')(app);
 require('./src/databaseUpdate/databaseUpdate.router')(app);
 
-//require("./src/routes/account.router")(app);
-// require("./src/routes/user.router")(app);
-// require("./src/routes/data.route")(app);
-// require("./src/routes/registration.router")(app);
-// require("./src/routes/owner.router")(app);
-// require("./src/routes/car.router")(app);
-
 app.listen(3010, () => {
   console.log("Server running at http://localhost:3010/");
 });

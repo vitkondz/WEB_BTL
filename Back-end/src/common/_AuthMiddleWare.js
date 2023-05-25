@@ -1,5 +1,6 @@
 let _JWT = require('../common/_JWT');
 
+// Kiem tra token hop le
 let isAuth = async function(req, res, next) {
     let _token = req.headers.authorization;
     if (_token) {

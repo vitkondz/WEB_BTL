@@ -1,11 +1,13 @@
 const database = require("../common/NDODatabase");
 
 class Statistics {
-    constructor(statistics) {}
+    constructor() {}
+
+    // Ham lay thong tin thong ke
     static async registryDataGet(center_id, result) {
+        // Lay thong tin tai khoan
         let queries1 = [];
         let values1 = [];
-
         let query1 = "SELECT * from account_list where unit_id = ?"
         let value1 = [center_id];
         queries1.push(query1);
@@ -13,8 +15,12 @@ class Statistics {
 
         database.get(queries1, values1)
         .then((res) => {
+
+            // Thong tin tai khoan va kieu tai khoan
             let account_list = res[0];
             let unit_type = account_list[0].type_of_account;
+
+            // Mang cac cau lenh truy van lay du lieu dang kiem, xe, chu so huu, trung tam va mang gia tri tuong ung
             let queries2 = [];
             let values2 = [];
 
@@ -42,16 +48,21 @@ class Statistics {
             let value6 = [center_id];
             queries2.push(query6);
             values2.push(value6);
-                            
+                      
+            // Thuc hien truy van lay du lieu dang kiem, xe, chu so huu, trung tam
             database.get(queries2, values2)
             .then((res) => {
+                // Du lieu dang kiem, xe, chu so huu, trung tam
                 let registration_information = res[0];
                 let car_information = res[1];
                 let owner_information = res[2];
                 let center_information = res[3];
                 let account_information = res[4];
-                //Trường hợp tài khoảng đăng nhập không phải là admin
+
+                //Truong hop tai khoan dang nhap khong phai la admin
                 if (unit_type !== "admin") {
+
+                    // Thuc hien loc thong tin theo trung tam tuong ung 
                     let checkRegistrationNumber = [];
                     for (let i = 0 ; i < registration_information.length; i++) {
                         if (registration_information[i].center_id !== center_id) {
@@ -84,13 +95,17 @@ class Statistics {
                         }
                     }
                 }
+
+                // Tra ve du lieu
                 result({ registrations: registration_information, cars: car_information, owners: owner_information, center: center_information, account: account_information});
             })
             .catch((err) => {
+                // Truong hop xay ra loi truy van co so du lieu dang kiem, xe, chu so huu, don vi dang kiem
                 result({result: false, error: err.message});
             })
         })
         .catch((err) => {
+            // Truong hop xay ra loi truy van co so du lieu tai khoan
             result({result: false, error: err.message});
         })
     }
