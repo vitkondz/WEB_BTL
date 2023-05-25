@@ -27,7 +27,7 @@ function Sidebar() {
           <div className="sidebarMenu">
             <h3 className="sidebarTitle">Thống kê</h3>
             <ul className="sidebarList">
-              <NavLink to="analysis" tag={Link}>
+              <NavLink to="analysis" tag={Link} onClick={() => handleNavLinkClick()}>
                 <li className="sidebarListItem">
                   <i className="sidebarIcon now-ui-icons business_chart-bar-32"></i>
                   Phân tích
