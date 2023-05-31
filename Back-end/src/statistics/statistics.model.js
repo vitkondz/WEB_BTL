@@ -44,10 +44,10 @@ class Statistics {
             values2.push([]);
                       
     
-            let query6 = "SELECT * from account_list where unit_id=?";
-            let value6 = [center_id];
-            queries2.push(query6);
-            values2.push(value6);
+            // let query6 = "SELECT * from account_list where unit_id=?";
+            // let value6 = [center_id];
+            // queries2.push(query6);
+            // values2.push(value6);
                       
             // Thuc hien truy van lay du lieu dang kiem, xe, chu so huu, trung tam
             database.get(queries2, values2)
@@ -57,7 +57,7 @@ class Statistics {
                 let car_information = res[1];
                 let owner_information = res[2];
                 let center_information = res[3];
-                let account_information = res[4];
+                // let account_information = res[4];
 
                 //Truong hop tai khoan dang nhap khong phai la admin
                 if (unit_type !== "admin") {
@@ -97,7 +97,7 @@ class Statistics {
                 }
 
                 // Tra ve du lieu
-                result({ registrations: registration_information, cars: car_information, owners: owner_information, center: center_information, account: account_information});
+                result({ registrations: registration_information, cars: car_information, owners: owner_information, center: center_information});
             })
             .catch((err) => {
                 // Truong hop xay ra loi truy van co so du lieu dang kiem, xe, chu so huu, don vi dang kiem

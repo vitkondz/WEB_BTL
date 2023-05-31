@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const JWT = require('../common/_JWT');
 
 class Login {
-    constructor(login) {}
+    constructor() {}
 
     // Ham xu ly thong tin dang nhap
     static async accountCheck(data, result) {

@@ -1,4 +1,4 @@
-let binarySearch = require('./binarySearch')
+let centerSearch = require('./centerSearch')
 
 async function getQuarter(month) {
     if (month >= 1 && month <= 3) {
@@ -12,9 +12,10 @@ async function getQuarter(month) {
     } else {
       return "Invalid month number. Month number should be between 1 and 12.";
     }
-  }
+}
 
-async function filter(registration_information, center_information, year, quarter, center_id, province, area) {
+// Ham loc thong tin dang kiem theo ngay dang kiem
+async function timeFilter(registration_information, center_information, year, quarter, center_id, province, area) {
     let dem = [];
     let kq = [];
     let dates_issued = [];
@@ -31,7 +32,7 @@ async function filter(registration_information, center_information, year, quarte
         }
     } else if (province !== false) {
         for (let i = 0; i < registrations.length; i++) {
-            let center = await binarySearch(centers, registrations[i].center_id);
+            let center = await centerSearch(centers, registrations[i].center_id);
             if (center.province !== province) {
                 registrations.splice(i, 1);
                 i--;
@@ -39,7 +40,7 @@ async function filter(registration_information, center_information, year, quarte
         }
     } else if (area !== false) {
         for (let i = 0; i < registrations.length; i++) {
-            let center = await binarySearch(centers, registrations[i].center_id);
+            let center = await centerSearch(centers, registrations[i].center_id);
             if (center.area !== area) {
                 registrations.splice(i, 1);
                 i--;
@@ -52,7 +53,7 @@ async function filter(registration_information, center_information, year, quarte
         let month = registrations[i].date_issued.slice(3, 5);
         let year = registrations[i].date_issued.slice(6, 10);
 
-        dates_issued.push(new Date(year, parseInt(month - 1), day));
+        dates_issued.push(new Date(year, parseInt(month) - 1, day));
     }
     dates_issued.sort(
         function(a, b) {
@@ -110,4 +111,4 @@ async function filter(registration_information, center_information, year, quarte
     return kq;
 }
 
-module.exports = filter;
+module.exports = timeFilter;

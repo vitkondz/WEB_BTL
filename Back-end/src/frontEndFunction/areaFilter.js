@@ -1,3 +1,4 @@
+// Ham tra ve danh sach cac trung tam, tinh thanh, khu vuc
 async function areaFilter(center_information) {
     let area_info = [];
     let centerId_info = [];

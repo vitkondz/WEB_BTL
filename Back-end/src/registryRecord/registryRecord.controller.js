@@ -1,8 +1,8 @@
 let registryRecordModel = require('./registryRecord.model');
 
-exports.dataGet = function(req, res) {
+exports.dataGet = async function(req, res) {
     // Lay du lieu tu request cap nhat thong tin dang kiem 
-    let data = req.body;
+    let data = await req.body;
 
     // Goi ham xu ly request cap nhat thong tin dang kiem 
     registryRecordModel.registryUpdate(data, function(response) {

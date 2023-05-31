@@ -4,7 +4,7 @@ class AccountChange {
     constructor() {}
 
     // Ham cap nhat thong tin nguoi dung
-    static userUpdate(data, result) {
+    static async userUpdate(data, result) {
         // Thong tin nguoi dung moi
         let center_id = data.center_id;
         let newCenterName = data.center_name;
