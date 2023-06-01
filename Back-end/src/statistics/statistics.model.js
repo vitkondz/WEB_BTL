@@ -97,7 +97,7 @@ class Statistics {
                 }
 
                 // Tra ve du lieu
-                result({ registrations: registration_information, cars: car_information, owners: owner_information, center: center_information});
+                result({result: true, registrations: registration_information, cars: car_information, owners: owner_information, center: center_information});
             })
             .catch((err) => {
                 // Truong hop xay ra loi truy van co so du lieu dang kiem, xe, chu so huu, don vi dang kiem

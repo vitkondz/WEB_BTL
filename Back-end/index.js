@@ -33,8 +33,9 @@ require('./src/userCreate/userCreate.router')(app);
 require('./src/statistics/statistics.router')(app);
 require('./src/registryRecord/registryRecord.router')(app);
 require('./src/databaseUpdate/databaseUpdate.router')(app);
+require('./src/numberPlateSearch/carInfoSearch.router')(app);
 
-app.listen(3010, () => {
+app.listen(3010, async () => {
   console.log("Server running at http://localhost:3010/");
 });
 
@@ -48,11 +49,11 @@ app.listen(3010, () => {
 //   "password": "abc123"
 // }
 
-// fetch("http://localhost:3010/statistics/VN0000", {
+// fetch("http://localhost:3010/carInfo/getByNumberPlate/91DCQ2025", {
 //   method: "GET",
 //   headers: {
 //     "Content-Type": "application/json",
-//     "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiVk4wMDAxIiwicGFzc3dvcmQiOiIkMmIkMTAkR3ltODlmblJhNThrenBELnRvc2FLZXBlb1N3TFFiLzRaM1c5aS9hMktUY2R4emNlNGxDMjIifSwiaWF0IjoxNjg1NTQ2MTU3LCJleHAiOjE2ODU1NDk3NTd9.RZHb0NBVkyTTSB9kZnq5eDV18NTZmPFWq-6mjFZ6QOY",
+//     "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiVk4wMDAxIiwicGFzc3dvcmQiOiIkMmIkMTAkR3ltODlmblJhNThrenBELnRvc2FLZXBlb1N3TFFiLzRaM1c5aS9hMktUY2R4emNlNGxDMjIifSwiaWF0IjoxNjg1NjA3OTg3LCJleHAiOjE2ODU2MTE1ODd9.gHi2dI-PfKwuV9bxpAb7BZz234SXh6nCewpQy1MOIrQ",
 //   },
 // })
 // .then((response) => {
@@ -62,8 +63,12 @@ app.listen(3010, () => {
 //   return response.json();
 // })
 // .then(async (data) => {
-//     // console.log(await nearlyExpiredFilter(data.registrations));
-//     console.log(await numberPlateSearch("204NPM1208", data.registrations, data.cars, data.owners));
+//   if (data.result === false) {
+//     console.log(data);
+//   } else {
+//        // console.log(await nearlyExpiredFilter(data.registrations));
+//     console.log(data);
+//   }
 //   }
 // )
 // .catch((error) => {
