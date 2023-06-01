@@ -48,10 +48,30 @@ function CreateAccount() {
     center_id = center_id + response.data.center.length
     setCenterId(center_id);
   }
-  const handleSubmit = (e) => {
-    alert("ádakdaa")
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Xử lý dữ liệu khi form được gửi đi
+    await axiosInstance({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: 'post',
+      url: `http://localhost:3010/user/create`,
+      data: {
+        'account': account,
+        'password': password,
+        'email': email,
+        'contact_number': phone,
+        'center_name': 'Trung tâm đăng kiểm ' + centerName,
+        'center_id': centerId,
+        'province': province,
+        'area': area,
+        'address': address
+      }
+    }).then(() => {
+      window.location.reload();
+    })
+
   };
   return (
     <>
@@ -67,7 +87,7 @@ function CreateAccount() {
                   placeholder={account}
                   type="text"
                   onChange={(event) => { setAccount(event.target.value) }}
-                  // required
+                // required
                 ></Input>
               </FormGroup>
               <FormGroup className="col-md-6">
@@ -148,7 +168,7 @@ function CreateAccount() {
               className="btn-round"
               type="button"
               onClick={(e) => handleSubmit(e)}
-              >
+            >
               Tạo
             </Button>
           </Form>
