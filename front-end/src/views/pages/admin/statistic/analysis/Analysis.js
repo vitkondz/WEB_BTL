@@ -20,6 +20,8 @@ export default function Analysis(props) {
   const [year, setYear] = useState(2022)
   const [center, setCenter] = useState(false)
 
+  const [centerInfo, setCenterInfo] = useState([])
+
   useEffect(() => {
     getCarRegistrationNumber();
   }, [area, province, year, center]);
@@ -33,6 +35,8 @@ export default function Analysis(props) {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
 
     })
+
+    setCenterInfo(response.data.center)
 
     console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
@@ -50,6 +54,7 @@ export default function Analysis(props) {
             setProvince={setProvince}
             setYear={setYear}
             setCenter={setCenter}
+            centerInfo={centerInfo}
           />
           :
           <FilterForUser
