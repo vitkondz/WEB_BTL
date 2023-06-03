@@ -11,6 +11,9 @@ function CenterInfo() {
   const [showEdit, setShowEdit] = useState(false);
   const [showChangePw, setShowChangePw] = useState(false);
 
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+
   const [data, setData] = useState([]);
   useEffect(() => {
     getCenterInfo();
@@ -30,11 +33,34 @@ function CenterInfo() {
     setData(data0);
   }
 
-  console.log("checkdata", data);
+  // console.log("checkdata", data);
 
   const back = () => {
     navigate(-1);
   }
+
+  const handleChangePassword = async () => {
+    if (oldPassword && newPassword) {
+      let response = await axiosInstance({
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'put',
+        url: `http://localhost:3010/account/passwordChange`,
+        data: {
+          "unit_id": data.center_id,
+          "oldPassword": oldPassword,
+          "newPassword": newPassword
+        }
+      })
+      if (!response.data.result) {
+        alert("Mật khẩu cũ không đúng, vui lòng nhập lại")
+      } else {
+        window.location.reload();
+      }
+    }
+  }
+
 
   return (
     <div className='centerInfo'>
@@ -113,7 +139,8 @@ function CenterInfo() {
                   ></Input>
                 </FormGroup>
               </Col>
-              <Button className="btn-round confirmBtn" color="info" type="button">
+              <Button className="btn-round confirmBtn" color="info" type="button"
+              >
                 <i className="now-ui-icons ui-1_check iconPos"></i>
                 Xác nhận
               </Button>
@@ -139,6 +166,7 @@ function CenterInfo() {
                     defaultValue=""
                     placeholder="Enter old password"
                     type="password"
+                    onChange={(event) => setOldPassword(event.target.value)}
                   ></Input>
                 </FormGroup>
               </Col>
@@ -149,10 +177,12 @@ function CenterInfo() {
                     defaultValue=""
                     placeholder="Enter new password"
                     type="password"
+                    onChange={(event) => setNewPassword(event.target.value)}
                   ></Input>
                 </FormGroup>
               </Col>
-              <Button className="btn-round confirmBtn" color="info" type="button">
+              <Button className="btn-round confirmBtn" color="info" type="button"
+                onClick={() => handleChangePassword()}>
                 <i className="now-ui-icons ui-1_check iconPos"></i>
                 Xác nhận
               </Button>
