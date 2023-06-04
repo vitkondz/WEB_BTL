@@ -78,7 +78,7 @@ function CreateAccount() {
       <Card className='col-md-9'>
         <CardBody>
           <CardTitle className="my-form-title">Tạo tài khoản trung tâm đăng kiểm</CardTitle>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <div className="form-row">
               <FormGroup className="col-md-6">
                 <label htmlFor="account">Tên đăng nhập</label>
@@ -87,7 +87,7 @@ function CreateAccount() {
                   placeholder={account}
                   type="text"
                   onChange={(event) => { setAccount(event.target.value) }}
-                // required
+                  required
                 ></Input>
               </FormGroup>
               <FormGroup className="col-md-6">
@@ -97,18 +97,19 @@ function CreateAccount() {
                   placeholder={password}
                   type="password"
                   onChange={(event) => { setPassword(event.target.value) }}
+                  required
                 ></Input>
               </FormGroup>
             </div>
             <div className='form-row'>
               <FormGroup className="col-md-7">
                 <label htmlFor="inputEmail4">Email</label>
-                <Input id="inputEmail4" placeholder={email} type="email" onChange={(event) => { setEmail(event.target.value) }}
+                <Input id="inputEmail4" placeholder={email} type="email" onChange={(event) => { setEmail(event.target.value) }} required
                 ></Input>
               </FormGroup>
               <FormGroup className="col-md-5">
                 <label htmlFor="contact_number">Số điện thoại</label>
-                <Input id="contact_number" placeholder={phone} type="text" onChange={(event) => { setPhone(event.target.value) }}
+                <Input id="contact_number" placeholder={phone} type="text" onChange={(event) => { setPhone(event.target.value) }} required
                 ></Input>
               </FormGroup>
             </div>
@@ -118,7 +119,8 @@ function CreateAccount() {
                 <Input
                   id="center_name"
                   placeholder={centerName}
-                  onChange={(event) => { setCenterName(event.target.value) }}
+                  onChange={(event) => { setCenterName(event.target.value) }} 
+                  required
                 ></Input>
               </FormGroup>
               <FormGroup className='col-md-5'>
@@ -129,13 +131,14 @@ function CreateAccount() {
                   placeholder={centerId}
                   type="text"
                   onChange={(event) => { setCenterId(event.target.value) }}
+                  required
                 ></Input>
               </FormGroup>
             </div>
             <div className='form-row'>
               <FormGroup className='col-md-5'>
                 <label htmlFor="province">Tỉnh thành</label>
-                <Input id="inputState" type="select" onChange={async (event) => { setProvince(event.target.value); setArea(await getAreaByProvince(event.target.value)) }}>
+                <Input id="inputState" type="select" onChange={async (event) => { setProvince(event.target.value); setArea(await getAreaByProvince(event.target.value)) }} required>
                   <option selected="">Chọn...</option>
                   {provinces.map((item, index) => (
                     <option key={`province-${index}`}>
@@ -151,6 +154,7 @@ function CreateAccount() {
                   id="area"
                   placeholder={area}
                   type="text"
+                  required
                 ></Input>
               </FormGroup>
             </div>
@@ -161,13 +165,14 @@ function CreateAccount() {
                 placeholder={address}
                 type="text"
                 onChange={(event) => { setAddress(event.target.value) }}
+                required
               ></Input>
             </FormGroup>
             <Button
               color="info"
               className="btn-round"
-              type="button"
-              onClick={(e) => handleSubmit(e)}
+              type="submit"
+              // onClick={(e) => handleSubmit(e)}
             >
               Tạo
             </Button>
