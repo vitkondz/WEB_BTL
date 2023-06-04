@@ -22,7 +22,7 @@ export default function AnalysisUser(props) {
 
   useEffect(() => {
     getNumberOfCarRegistered();
-  }, [area, province, year, center]);
+  }, [year]);
 
   const getNumberOfCarRegistered = async () => {
     let response = await axiosInstance({

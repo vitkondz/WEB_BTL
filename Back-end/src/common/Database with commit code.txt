@@ -1,0 +1,53 @@
+const mysql = require("mysql2/promise");
+
+class NDODatabase {
+  constructor() {
+    this.pool = mysql.createPool({
+      host: "localhost",
+      port: 3306,
+      user: "root",
+      password: "12345678",
+      database: "registrytotal",
+      connectionLimit: 20,
+      waitForConnections: true,
+    });
+  }
+
+  async get(query, values) {
+    const connection = await this.pool.getConnection();
+    try {
+      await connection.beginTransaction(); // Bắt đầu giao dịch
+
+      const [rows, fields] = await connection.execute(query, values);
+
+      await connection.commit(); // Commit giao dịch
+      return rows;
+    } catch (error) {
+      await connection.rollback(); // Rollback giao dịch
+      console.log(error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
+  async set(query, values) {
+    const connection = await this.pool.getConnection();
+    try {
+      await connection.beginTransaction(); // Bắt đầu giao dịch
+
+      await connection.execute(query, values);
+
+      await connection.commit(); // Commit giao dịch
+      return true;
+    } catch (error) {
+      await connection.rollback(); // Rollback giao dịch
+      console.log(error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+}
+
+module.exports = NDODatabase;
