@@ -22,6 +22,7 @@ import axiosInstance from "functions/AxiosInstance";
 import getPlates from "functions/getPlates";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { formatDate, addMonthsToDate, isDateBeforeToday} from "functions/calculateDate";
 
 function Registry() {
   const [listOfPlates, setListOfPlates] = useState([])
@@ -43,7 +44,9 @@ function Registry() {
   const [contactNumber, setContactNumber] = useState("")
 
   const [selectedDate, setSelectedDate] = useState(null);
+  const [dateString, setDateString] = useState("")
   const [registryCode, setRegistryCode] = useState("");
+  const [time, setTime] = useState(6)
 
   const [isValidInput, setIsValidInput] = useState(true);
   useEffect(() => {
@@ -52,7 +55,7 @@ function Registry() {
   }, [])
   useEffect(() => {
     handleDisplay();
-  },[numberPlate])
+  }, [numberPlate])
 
   const getRegistryCode = async () => {
     let prefix = JSON.parse(Cookies.get('info')).center_id.slice(2, 6);
@@ -64,15 +67,22 @@ function Registry() {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
       .then((res) => {
-        let surfix = res.data.registrations.length;
+        let surfix = res.data.registrations.length + 1;
         for (let i = 1; i <= 6 - surfix.toString().length; i++) {
           prefix = prefix + '0'
         }
         setRegistryCode(prefix + surfix);
       })
   }
+
+  useEffect(() => {
+    handleDateChange(selectedDate);
+    // console.log("haha");
+  }, [selectedDate, time])
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    console.log(addMonthsToDate(formatDate(date), time))
+    setDateString(addMonthsToDate(formatDate(date), time))
+    // setSelectedDate(date);
   };
 
   const getListOfPlates = async () => {
@@ -103,6 +113,9 @@ function Registry() {
       setDateRegistered(response.data.car.date_registered)
       setPurposeOfUse(response.data.car.purpose_of_use)
       setLastDateExpired(response.data.date_expired)
+      isDateBeforeToday(response.data.date_expired) ?
+        setStatus("Hết hạn")
+        : setStatus("Chưa hết hạn")
 
       setOwnerName(response.data.owner.owner_name)
       setTypeOfOwnership(response.data.owner.type_of_ownership)
@@ -125,6 +138,31 @@ function Registry() {
       setOwnerAddress("")
       setContactNumber("")
     }
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let response = await axiosInstance({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: 'post',
+      url: `http://localhost:3010/registry/update`,
+      data: {
+        "registration_number": registrationNumber,
+        "number_plate": numberPlate,
+        "owner_name": ownerName,
+        "owner_id": ownerId,
+        "date_issued": formatDate(selectedDate),
+        "date_expired": dateString,
+        "center_name": JSON.parse(Cookies.get('info')).center_name,
+        "center_id": JSON.parse(Cookies.get('info')).center_id,
+        "registry_code": registryCode
+      }
+    })
+      .then(() => {
+        window.location.reload();
+      })
   }
 
   return (
@@ -281,51 +319,48 @@ function Registry() {
       <Card>
         <CardBody>
           <CardTitle className="my-form-title">Đăng kiểm xe</CardTitle>
-          <div className="form-row">
-            <FormGroup className="col-md-2">
-              <label htmlFor="type_of_ownership">Ngày đăng kiểm</label>
-              <InputGroup>
-                <DatePicker
-                  selected={selectedDate}
-                  onChange={handleDateChange}
-                  dateFormat="dd/MM/yyyy"
-                  className="form-control"
-                  placeholderText="dd/mm/yyyy"
-                />
-              </InputGroup>
-            </FormGroup>
-            <FormGroup>
-              <label htmlFor="time">Thời hạn</label>
-              <Input id="time" type="select">
-                <option>12 tháng</option>
-                <option>24 tháng</option>
-              </Input>
-            </FormGroup>
-            <FormGroup className="col-md-1">
-              <label htmlFor="registry_code">Mã đăng kiểm</label>
-              <Input
-                readOnly
-                id="registry_code"
-                placeholder={registryCode}
-                type="text"
-              ></Input>
-            </FormGroup>
-            {/* <FormGroup className="col-md-2">
-              <label htmlFor="type_of_ownership">Ngày hết hạn</label>
-              <Input
-                readOnly
-                id="type_of_ownership"
-                placeholder=""
-                type="text"
-              ></Input>
-            </FormGroup> */}
-          </div>
-          <Button
-            color="info"
-            className="btn-round"
-            type="button">
-            Upload
-          </Button>
+          <form onSubmit={handleSubmit}>
+            <div className="form-row">
+              <FormGroup className="col-md-2">
+                <label htmlFor="type_of_ownership">Ngày đăng kiểm</label>
+                <InputGroup>
+                  <DatePicker
+                    selected={selectedDate}
+                    // onChange={(event) => setSelectedDate(event.target.value)}
+                    // onChange={handleDateChange}
+                    onChange={setSelectedDate}
+                    dateFormat="dd/MM/yyyy"
+                    className="form-control"
+                    placeholderText="dd/mm/yyyy"
+                    required
+                  />
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <label htmlFor="time">Thời hạn</label>
+                <Input id="time" type="select" onChange={(event) => setTime(event.target.value.slice(0, 2))}>
+                  <option>6 tháng</option>
+                  <option>12 tháng</option>
+                  <option>24 tháng</option>
+                </Input>
+              </FormGroup>
+              <FormGroup className="col-md-1">
+                <label htmlFor="registry_code">Mã đăng kiểm</label>
+                <Input
+                  readOnly
+                  id="registry_code"
+                  placeholder={registryCode}
+                  type="text"
+                ></Input>
+              </FormGroup>
+            </div>
+            <Button
+              color="info"
+              className="btn-round"
+              type="submit">
+              Upload
+            </Button>
+          </form>
         </CardBody>
       </Card >
     </>

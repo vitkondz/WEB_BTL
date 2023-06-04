@@ -9,7 +9,8 @@ export default function FilterForUser(props) {
         <div className='filter'>
             <Autocomplete
                 onInputChange={(event, newInputValue) => {
-                    props.setYear(newInputValue);                    
+                    props.setYear(+newInputValue);
+
                 }}
                 disablePortal
                 id="combo-box-demo"
@@ -24,8 +25,8 @@ export default function FilterForUser(props) {
 }
 
 const year = [
-    {label: 2020},
-    {label: 2021},
-    {label: 2022},
-    {label: 2023},
+    { label: 2020 },
+    { label: 2021 },
+    { label: 2022 },
+    { label: 2023 },
 ]
