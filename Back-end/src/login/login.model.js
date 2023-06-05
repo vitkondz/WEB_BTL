@@ -18,7 +18,8 @@ class Login {
         queries.push(query);
         values.push(value);
 
-        database.get(queries, values).then((res) => {    
+        database.get(queries, values)
+        .then((res) => {    
             let user = res[0][0];
 
             // Kiem tra tai khoan hop le
@@ -60,7 +61,8 @@ class Login {
                     result({result: false, error: "Invalid account"});
                 }    
             });   
-        }).catch((err) => {
+        })
+        .catch((err) => {
             // Truong hop xay ra loi truy van co so du lieu
             result({result: false, error: err.message});
         });
