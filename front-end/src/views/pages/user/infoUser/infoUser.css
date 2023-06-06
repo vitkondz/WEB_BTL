@@ -1,0 +1,68 @@
+.centerInfo {
+    flex: 4;
+  }
+  
+  .iconPos {
+    right: 10px;
+  }
+  
+  .headerCenterInfo {
+    display: flex;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  
+  .headerCenterName {
+    margin-bottom: 5px;
+    position: relative;
+    top: 7px;
+    left: 30px;
+  }
+  
+  .bodyCenterInfo {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .leftInfo {
+    flex: 4;
+    margin-left: 50px;
+  }
+  
+  .basicInfo {
+    margin-bottom: 50px;
+    margin-top: 50px;
+  }
+  
+  .infoLine {
+    font-size: 20px;
+    position: relative;
+    padding: 5px;
+  }
+  .data {
+    padding-left: 10px;
+    position: absolute;
+    left: 150px;
+    font-weight: 300;
+  }
+  
+  .rightUpdate {
+    flex: 5;
+  }
+  .label {
+    font-size: 20px;
+  }
+  .editContainer {
+    padding-left: 20px;
+    border-left: 1px solid rgb(176, 176, 176);
+  }
+  
+  .changeContainer {
+    padding-left: 20px;
+    border-left: 1px solid rgb(176, 176, 176);
+  }
+  
+  .confirmBtn {
+    position: relative;
+    left: 200px;
+  }
