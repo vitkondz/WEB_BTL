@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 class UserCreate {
-    constructor() {}
+    constructor() {};
 
     // Ham tao nguoi dung
     static async userCreate(data, result) {
