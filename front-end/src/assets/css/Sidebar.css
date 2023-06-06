@@ -48,14 +48,24 @@
   font-size: 20px;
 }
 
+.dropdownSidebar {
+  display: none;
+}
+
 @media screen and (max-width: 500px) {
   .sidebar {
-    background-color: red;
+    background-color: blue;
     display: block;
     height: 25vh;
     border-radius: 0px;
   }
   .sidebarTitle {
+    display: none;
+  }
+  .dropdownSidebar {
+    display: block;
+  }
+  .sidebar{
     display: none;
   }
 }

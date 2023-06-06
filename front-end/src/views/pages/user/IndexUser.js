@@ -3,7 +3,7 @@ import React from 'react'
 function IndexUser() {
   return (
     <div>
-        Index User
+      Index user
     </div>
   )
 }

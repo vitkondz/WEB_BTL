@@ -1,9 +1,15 @@
 import React from 'react';
 import "assets/css/Sidebar.css";
 import { Link } from 'react-router-dom';
-import { NavLink } from 'reactstrap';
 import jwt_decode from "jwt-decode";
 import Cookies from 'js-cookie';
+import {
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  NavLink
+} from "reactstrap";
 
 function Sidebar() {
   const isTokenExpired = (token) => {
@@ -46,7 +52,33 @@ function Sidebar() {
           </div>
         </div>
       </div>
-
+      <UncontrolledDropdown className="dropdownSidebar">
+        <DropdownToggle
+          aria-expanded={false}
+          aria-haspopup={true}
+          caret
+          color="info"
+          data-toggle="dropdown"
+          id="dropdownMenuButton"
+          type="button"
+        >
+          Theo dõi
+        </DropdownToggle>
+        <DropdownMenu aria-labelledby="dropdownMenuButton">
+          <DropdownItem to="analysis" tag={Link} onClick={() => handleNavLinkClick()}>
+            <i className="sidebarIcon now-ui-icons business_chart-bar-32"></i>
+            Phân tích
+          </DropdownItem>
+          <DropdownItem to="carlist" tag={Link} onClick={() => handleNavLinkClick()}>
+            <i className="sidebarIcon now-ui-icons shopping_delivery-fast"></i>
+            Theo dõi xe
+          </DropdownItem>
+          <DropdownItem to="registration" tag={Link} onClick={() => handleNavLinkClick()}>
+            <i className="sidebarIcon now-ui-icons education_agenda-bookmark"></i>
+            Lượt đăng kiểm
+          </DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
     </>
   )
 }

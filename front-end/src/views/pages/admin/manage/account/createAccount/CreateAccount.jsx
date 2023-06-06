@@ -12,6 +12,7 @@ import {
   ListGroup, ListGroupItem,
   InputGroup,
 } from "reactstrap";
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axiosInstance from "functions/AxiosInstance";
 import areaFilter from 'functions/areaFilter';
@@ -28,6 +29,7 @@ function CreateAccount() {
   const [area, setArea] = useState("")
   const [address, setAddress] = useState("")
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     getCenterId();
@@ -73,9 +75,16 @@ function CreateAccount() {
     })
 
   };
+  const back = () => {
+    navigate(-1);
+  }
   return (
     <>
       <Card className='col-md-9'>
+        <Button className="btn-round btnBack" color="info" type="button" onClick={back}>
+          <i className="now-ui-icons arrows-1_minimal-left iconPos"></i>
+          Back
+        </Button>
         <CardBody>
           <CardTitle className="my-form-title">Tạo tài khoản trung tâm đăng kiểm</CardTitle>
           <Form onSubmit={handleSubmit}>
@@ -119,7 +128,7 @@ function CreateAccount() {
                 <Input
                   id="center_name"
                   placeholder={centerName}
-                  onChange={(event) => { setCenterName(event.target.value) }} 
+                  onChange={(event) => { setCenterName(event.target.value) }}
                   required
                 ></Input>
               </FormGroup>
@@ -172,7 +181,7 @@ function CreateAccount() {
               color="info"
               className="btn-round"
               type="submit"
-              // onClick={(e) => handleSubmit(e)}
+            // onClick={(e) => handleSubmit(e)}
             >
               Tạo
             </Button>
