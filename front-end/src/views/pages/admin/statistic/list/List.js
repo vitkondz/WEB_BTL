@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react"
 import axiosInstance from 'functions/AxiosInstance';
 import Cookies from 'js-cookie';
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default function List() {
   const [data, setData] = useState([]);
@@ -43,8 +44,10 @@ export default function List() {
               color="info"
               className="btn-round"
               type="button"
+              to={"/statistic/list/" + params.row.number_plate}
+              tag={Link}
             >
-              Detail
+              Chi tiết
             </Button>
 
           </div>
