@@ -21,6 +21,7 @@ import getAreaByProvince from 'functions/getAreaByProvince';
 function CreateAccount() {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("")
+  const [repeatPassword, setRepeatPassword] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [centerName, setCenterName] = useState("")
@@ -49,30 +50,43 @@ function CreateAccount() {
     }
     center_id = center_id + response.data.center.length
     setCenterId(center_id);
+    setAccount(center_id);
+  }
+  let checkPassword = () => {
+    if (repeatPassword === password) {
+      return true;
+    } else {
+      return false;
+    }
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Xử lý dữ liệu khi form được gửi đi
-    await axiosInstance({
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: 'post',
-      url: `http://localhost:3010/user/create`,
-      data: {
-        'account': account,
-        'password': password,
-        'email': email,
-        'contact_number': phone,
-        'center_name': 'Trung tâm đăng kiểm ' + centerName,
-        'center_id': centerId,
-        'province': province,
-        'area': area,
-        'address': address
-      }
-    }).then(() => {
-      window.location.reload();
-    })
+    if (checkPassword()) {
+      await axiosInstance({
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: 'post',
+        url: `http://localhost:3010/user/create`,
+        data: {
+          'account': account,
+          'password': password,
+          'email': email,
+          'contact_number': phone,
+          'center_name': 'Trung tâm đăng kiểm ' + centerName,
+          'center_id': centerId,
+          'province': province,
+          'area': area,
+          'address': address
+        }
+      }).then(() => {
+        alert("Tạo user thành công")
+        window.location.reload();
+      })
+    } else {
+      alert("Mật khẩu nhập lại chưa đúng")
+    }
 
   };
   const back = () => {
@@ -97,15 +111,26 @@ function CreateAccount() {
                   type="text"
                   onChange={(event) => { setAccount(event.target.value) }}
                   required
+                  readOnly
                 ></Input>
               </FormGroup>
-              <FormGroup className="col-md-6">
+              <FormGroup className="col-md-3">
                 <label htmlFor="inputPassword4">Mật khẩu</label>
                 <Input
                   id="inputPassword4"
                   placeholder={password}
                   type="password"
                   onChange={(event) => { setPassword(event.target.value) }}
+                  required
+                ></Input>
+              </FormGroup>
+              <FormGroup className="col-md-3">
+                <label htmlFor="inputReenterPassword4">Nhập lại mật khẩu</label>
+                <Input
+                  id="inputReenterPassword4"
+                  placeholder={repeatPassword}
+                  type="password"
+                  onChange={(event) => { setRepeatPassword(event.target.value) }}
                   required
                 ></Input>
               </FormGroup>

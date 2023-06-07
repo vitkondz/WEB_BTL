@@ -35,6 +35,7 @@ export default function AnalysisUser(props) {
     })
 
     // console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
+    // console.log(response.data.registrations)
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
     setQuarterData(await filter(response.data.registrations, response.data.center, year, true, center, province, area));
     setYearData(await filter(response.data.registrations, response.data.center, true, false, center, province, area));

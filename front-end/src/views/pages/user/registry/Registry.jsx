@@ -91,12 +91,16 @@ function Registry() {
         "Content-Type": "application/json",
       },
       method: 'get',
-      url: `http://localhost:3010/statistics/VN0000`,
+      url: `http://localhost:3010/numberPlate/getAll`,
 
     })
-    setListOfPlates(await getPlates(response.data.cars));
+    // console.log(((response.data.result[0].number_plate)))
+    setListOfPlates(response.data.result);
+    // console.log("check1", response.data.result);
+    // console.log(await listOfPlates)
   }
   const handleDisplay = async () => {
+    console.log(isValidInput);
     if (numberPlate && isValidInput) {
       let response = await axiosInstance({
         headers: {
@@ -105,7 +109,6 @@ function Registry() {
         method: 'get',
         url: `http://localhost:3010/carInfo/getByNumberPlate/${numberPlate}`,
       })
-      console.log(response.data);
       setRegistrationNumber(response.data.car.registration_number)
       setCarName(response.data.car.car_name)
       setBrand(response.data.car.brand)
@@ -165,6 +168,13 @@ function Registry() {
       })
   }
 
+  const checkValidInput = (newInputValue) => {
+    var result = listOfPlates.find(function(element) {
+      return element.number_plate === newInputValue;
+    })
+    return result;
+  }
+
   return (
     <>
       <FixedNavbarUser />
@@ -179,10 +189,12 @@ function Registry() {
                   onInputChange={(event, newInputValue) => {
                     // props.setYear(newInputValue);
                     setNumberPlate(newInputValue);
-                    setIsValidInput(listOfPlates.includes(newInputValue));;
+                    // setIsValidInput(listOfPlates.includes(newInputValue));
+                    setIsValidInput(checkValidInput(newInputValue))
                   }}
                   disablePortal
                   id="combo-box-demo"
+                  getOptionLabel={(option) => option.number_plate}
                   options={listOfPlates}
                   sx={{ width: 150 }}
                   renderInput={(params) => <TextField {...params} label="Nhập biển số xe" variant="standard" />}
@@ -338,13 +350,13 @@ function Registry() {
               </FormGroup>
               <FormGroup>
                 <label htmlFor="time">Thời hạn</label>
-                <Input id="time" type="select" onChange={(event) => setTime(event.target.value.slice(0, 2))}>
+                <Input id="time" type="select" onChange={(event) => setTime(parseInt(event.target.value.slice(0, 2)))}>
                   <option>6 tháng</option>
                   <option>12 tháng</option>
                   <option>24 tháng</option>
                 </Input>
               </FormGroup>
-              <FormGroup className="col-md-1">
+              <FormGroup className="col-md-5">
                 <label htmlFor="registry_code">Mã đăng kiểm</label>
                 <Input
                   readOnly
