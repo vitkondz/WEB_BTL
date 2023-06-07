@@ -3,7 +3,7 @@ import { useParams, useNavigate, useAsyncError } from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
 import axiosInstance from "functions/AxiosInstance";
 import Cookies from "js-cookie";
-import { Button, FormGroup, Input, Col } from 'reactstrap';
+import { Button, FormGroup, Input, Col, Form } from 'reactstrap';
 
 function CenterInfo() {
   const { centerId } = useParams();
@@ -13,6 +13,7 @@ function CenterInfo() {
 
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
+  const [repeatPassword, setRepeatPassword] = useState("")
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -40,8 +41,17 @@ function CenterInfo() {
     navigate(-1);
   }
 
-  const handleChangePassword = async () => {
-    if (oldPassword && newPassword) {
+  let checkPassword = () => {
+    if (repeatPassword === newPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
+    if (oldPassword && newPassword && checkPassword()) {
       let response = await axiosInstance({
         headers: {
           "Content-Type": "application/json",
@@ -57,8 +67,11 @@ function CenterInfo() {
       if (!response.data.result) {
         alert("Mật khẩu cũ không đúng, vui lòng nhập lại")
       } else {
-        window.location.reload();
+        alert("Đổi mật khẩu thành công")
+        navigate(-1);
       }
+    } else {
+      alert("Mật khẩu nhập lại không đúng")
     }
   }
 
@@ -186,43 +199,55 @@ function CenterInfo() {
           {showChangePw &&
             <div className="changeContainer">
               <p className="category">Đổi mật khẩu</p>
-              <Col lg="6" sm="3">
-                <div className="label">Mã trung tâm</div>
-                <FormGroup>
-                  <Input
-                    placeholder={data.center_id}
-                    readonly=""
-                    type="text"
-                  ></Input>
-                </FormGroup>
-              </Col>
-              <Col lg="6" sm="3">
-                <div className="label">Mật khẩu cũ</div>
-                <FormGroup>
-                  <Input
-                    defaultValue=""
-                    placeholder="Enter old password"
-                    type="password"
-                    onChange={(event) => setOldPassword(event.target.value)}
-                  ></Input>
-                </FormGroup>
-              </Col>
-              <Col lg="6" sm="3">
-                <div className="label">Mật khẩu mới</div>
-                <FormGroup>
-                  <Input
-                    defaultValue=""
-                    placeholder="Enter new password"
-                    type="password"
-                    onChange={(event) => setNewPassword(event.target.value)}
-                  ></Input>
-                </FormGroup>
-              </Col>
-              <Button className="btn-round confirmBtn" color="info" type="button"
-                onClick={() => handleChangePassword()}>
-                <i className="now-ui-icons ui-1_check iconPos"></i>
-                Xác nhận
-              </Button>
+              <Form onSubmit={handleChangePassword}>
+                <Col lg="6" sm="3">
+                  <div className="label">Mã trung tâm</div>
+                  <FormGroup>
+                    <Input
+                      placeholder={data.center_id}
+                      readonly=""
+                      type="text"
+                    ></Input>
+                  </FormGroup>
+                </Col>
+                <Col lg="6" sm="3">
+                  <div className="label">Mật khẩu cũ</div>
+                  <FormGroup>
+                    <Input
+                      defaultValue=""
+                      placeholder="Enter old password"
+                      type="password"
+                      onChange={(event) => setOldPassword(event.target.value)}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+                <Col lg="6" sm="3">
+                  <div className="label">Mật khẩu mới</div>
+                  <FormGroup>
+                    <Input
+                      defaultValue=""
+                      placeholder="Enter new password"
+                      type="password"
+                      onChange={(event) => setNewPassword(event.target.value)}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+                <Col lg="6" sm="3">
+                  <div className="label">Nhập mật khẩu mới</div>
+                  <FormGroup>
+                    <Input
+                      defaultValue=""
+                      placeholder="Re-enter new password"
+                      type="password"
+                      onChange={(event) => setRepeatPassword(event.target.value)}
+                    ></Input>
+                  </FormGroup>
+                </Col>
+                <Button className="btn-round confirmBtn" color="info" type="submit">
+                  <i className="now-ui-icons ui-1_check iconPos"></i>
+                  Xác nhận
+                </Button>
+              </Form>
             </div>
           }
         </div>
