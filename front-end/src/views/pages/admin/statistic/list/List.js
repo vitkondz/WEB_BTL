@@ -3,15 +3,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react"
 import axiosInstance from 'functions/AxiosInstance';
 import Cookies from 'js-cookie';
+import { Button } from 'reactstrap';
 
 export default function List() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    getCarOwner();
+    getCar();
 
   }, []);
 
-  const getCarOwner = async () => {
+  const getCar = async () => {
     let response = await axiosInstance({
       headers: {
         "Content-Type": "application/json",
@@ -19,31 +20,36 @@ export default function List() {
       method: 'get',
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
-    setData(response.data.owners);
+    setData(response.data.cars);
 
-    console.log("check dataOwners", data);
-    console.log("check data", response.data.owners)
+    console.log("check dataCar", data);
+    console.log("check data", response.data);
 
   }
 
   const columns = [
-    { field: "owner_id", headerName: "ID", width: 115 },
-    { field: "owner_name", headerName: "Họ tên", width: 200 },
-    { field: "owner_address", headerName: "Địa chỉ", width: 350 },
+    { field: "number_plate", headerName: "Biển xe", width: 115 },
+    { field: "car_name", headerName: "Hãng xe", width: 130 },
+    { field: "province", headerName: "Tỉnh thành", width: 115 },
+    { field: "owner_name", headerName: "Chủ xe", width: 315, headerAlign: 'center' },
     {
-      field: "type_of_ownership",
-      headerName: "Status",
-      width: 100,
-    },
-    {
-      field: "contact_number",
-      headerName: "Số điện thoại",
-      width: 120,
-    },
-    {
-      field: "registration_number",
-      headerName: "Mã đăng kiểm",
-      width: 150,
+      field: "action",
+      headerName: "",
+      width: 125,
+      renderCell: (params) => {
+        return (
+          <div>
+            <Button
+              color="info"
+              className="btn-round"
+              type="button"
+            >
+              Detail
+            </Button>
+
+          </div>
+        )
+      }
     }
   ];
   return (

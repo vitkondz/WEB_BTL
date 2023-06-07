@@ -2,7 +2,7 @@ import React from "react";
 import FixedNavbar from "components/Navbars/FixedNavbar";
 import {Outlet } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
-import "./Statistic.css";
+// import "./Statistic.css";
 function Statistic() {
   return (
     <>

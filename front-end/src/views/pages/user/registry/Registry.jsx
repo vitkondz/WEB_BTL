@@ -316,7 +316,7 @@ function Registry() {
         </Card>
       </div >
 
-      <Card>
+      <Card>  
         <CardBody>
           <CardTitle className="my-form-title">Đăng kiểm xe</CardTitle>
           <form onSubmit={handleSubmit}>
@@ -344,7 +344,7 @@ function Registry() {
                   <option>24 tháng</option>
                 </Input>
               </FormGroup>
-              <FormGroup className="col-md-1">
+              <FormGroup className="col-md-2">
                 <label htmlFor="registry_code">Mã đăng kiểm</label>
                 <Input
                   readOnly
