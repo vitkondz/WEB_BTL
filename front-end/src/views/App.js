@@ -32,6 +32,7 @@ import Registry from "./pages/user/registry/Registry";
 import InfoUser from "./pages/user/infoUser/InfoUser";
 import PageNotFound from "./pages/PageNotFound";
 import IndexUser from "./pages/user/IndexUser";
+import CarInfo from "./pages/user/track/carList/carInfo/CarInfo";
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -61,6 +62,7 @@ const App = () => {
               <Route index element={<IndexUser/>}/>
               <Route path="analysis" element={<AnalysisUser />} />
               <Route path="carlist" element={<CarList />} />
+              <Route path="carlist/:carPlate" element={<CarInfo/>} />
               <Route path="registration" element={<RegistrationTrack />} />
             </Route>
             <Route path="registry" element={<Registry />} />
