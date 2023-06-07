@@ -7,7 +7,6 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap";
 import { useNavigate } from 'react-router-dom';
-import "./CarList.css";
 
 function CarList() {
   const navigate = useNavigate();
@@ -54,16 +53,19 @@ function CarList() {
     {
       field: "action",
       headerName: "",
-      width: 125,
+      width: 150,
       renderCell: (params) => {
         return (
           <div>
+
             <Button
-              color="info"
               className="btn-round"
+              color="info"
               type="button"
+              to={"/track/carlist/" + params.row.number_plate}
+              tag={Link}
             >
-              Detail
+              Chi tiết
             </Button>
 
           </div>

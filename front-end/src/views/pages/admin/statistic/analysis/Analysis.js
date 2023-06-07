@@ -8,6 +8,7 @@ import filter from "functions/timeFiler";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "functions/AxiosInstance";
 import FilterForUser from "components/filter/FilterForUser";
+import { ResponsiveContainer } from "recharts";
 
 
 export default function Analysis(props) {
@@ -46,32 +47,37 @@ export default function Analysis(props) {
   }
 
   return (
-    <div className="home">
-      {
-        (Cookies.get('info')) && JSON.parse(Cookies.get('info')).type_of_account === 'admin' ?
-          <Filter
-            setArea={setArea}
-            setProvince={setProvince}
-            setYear={setYear}
-            setCenter={setCenter}
-            centerInfo={centerInfo}
-          />
-          :
-          <FilterForUser
-            setYear={setYear}
-          />
-      }
-      {/* <div>Check Area: {area}</div>
+    <>
+      <div className="home">
+        {
+          (Cookies.get('info')) && JSON.parse(Cookies.get('info')).type_of_account === 'admin' ?
+            <Filter
+              setArea={setArea}
+              setProvince={setProvince}
+              setYear={setYear}
+              setCenter={setCenter}
+              centerInfo={centerInfo}
+            />
+            :
+            <FilterForUser
+              setYear={setYear}
+            />
+        }
+        {/* <div>Check Area: {area}</div>
       <div>Check Province: {province}</div>
       <div>Check Year: {year}</div>
       <div>Check Center: {center}</div> */}
 
-      
-      <div>
-        <Chart year={year !== 0 ? year : ' '} data={monthData} title="Thống kê theo tháng" grid dataKey="quantity" kind="month" />  
-        <Chart year={year !== 0 ? year : ' '} data={quarterData} title="Thống kê theo quý" grid dataKey="quantity" kind="quarter" />
+
+        <div>
+          <Chart year={year !== 0 ? year : ' '} data={monthData} title="Thống kê theo tháng" grid dataKey="quantity" kind="month" />
+          <Chart year={year !== 0 ? year : ' '} data={quarterData} title="Thống kê theo quý" grid dataKey="quantity" kind="quarter" />
+        </div>
+
+        <Chart year={' '} data={yearData} title="Thống kê theo các năm" grid dataKey="quantity" kind="year" />
+
       </div>
-      <Chart year={' '} data={yearData} title="Thống kê theo các năm" grid dataKey="quantity" kind="year" />
-    </div>
+    </>
+
   );
 }

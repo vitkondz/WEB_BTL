@@ -32,9 +32,10 @@ function CenterInfo() {
     let data0 = center.find((center) => center.center_id === centerId);
 
     setData(data0);
+    
   }
 
-  // console.log("checkdata", data);
+  console.log("checkdata", data);
 
   const back = () => {
     navigate(-1);
@@ -98,6 +99,15 @@ function CenterInfo() {
             <div className="infoLine">
               <div>Khu vực: <span className="data">{data.area}</span></div>
             </div>
+            <div className="infoLine">
+              <div>Số điện thoại: <span className="data">{data.contact_number}</span></div>
+            </div>
+            <div className="infoLine">
+              <div>Email: <span className="data">{data.email}</span></div>
+            </div>
+            <div className="infoLine">
+              <div>Địa chỉ: <span className="data">{data.address}</span></div>
+            </div>
           </div>
           <div className="basicButton">
             <Button className="btn-round" color="info" type="button"
@@ -148,6 +158,33 @@ function CenterInfo() {
                 <FormGroup>
                   <Input
                     placeholder={data.area}
+                    type="text"
+                  ></Input>
+                </FormGroup>
+              </Col>
+              <Col lg="6" sm="3">
+                <div className="label">Số điện thoại</div>
+                <FormGroup>
+                  <Input
+                    placeholder={data.contact_number}
+                    type="text"
+                  ></Input>
+                </FormGroup>
+              </Col>
+              <Col lg="6" sm="3">
+                <div className="label">Email</div>
+                <FormGroup>
+                  <Input
+                    placeholder={data.email}
+                    type="text"
+                  ></Input>
+                </FormGroup>
+              </Col>
+              <Col lg="6" sm="3">
+                <div className="label">Địa chỉ</div>
+                <FormGroup>
+                  <Input
+                    placeholder={data.address}
                     type="text"
                   ></Input>
                 </FormGroup>

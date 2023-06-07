@@ -328,7 +328,7 @@ function Registry() {
         </Card>
       </div >
 
-      <Card>
+      <Card>  
         <CardBody>
           <CardTitle className="my-form-title">Đăng kiểm xe</CardTitle>
           <form onSubmit={handleSubmit}>
