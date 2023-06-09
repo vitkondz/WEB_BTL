@@ -44,10 +44,7 @@ class Statistics {
             values2.push([]);
                       
     
-            // let query6 = "SELECT * from account_list where unit_id=?";
-            // let value6 = [center_id];
-            // queries2.push(query6);
-            // values2.push(value6);
+           
                       
             // Thuc hien truy van lay du lieu dang kiem, xe, chu so huu, trung tam
             database.get(queries2, values2)
@@ -94,10 +91,43 @@ class Statistics {
                             i--;
                         }
                     }
-                }
 
-                // Tra ve du lieu
-                result({result: true, registrations: registration_information, cars: car_information, owners: owner_information, center: center_information});
+                    // Tra ve du lieu
+                    result({result: true, registrations: registration_information, cars: car_information, owners: owner_information, center: center_information});
+                } else {
+                    // Neu la tai khoan cuc dang kiem thi kiem tra trang thai tai khoan trung tam
+                    let queries3 = [];
+                    let values3 = []
+                    let query6 = "SELECT * from account_list";
+                    let value6 = [];
+                    queries3.push(query6);
+                    values3.push(value6);
+
+                    database.get(queries3, values3)
+                    .then((res) => {
+                        let account_information = res[0];
+                        let accountCheck = [];
+                        for (let i = 0; i < account_information.length; i++) {
+                            accountCheck[account_information[i].unit_id] = true;
+                        }
+
+                        for (let i = 0; i < center_information.length; i++) {
+                            if (accountCheck[center_information[i].center_id] === true) {
+                                center_information[i].account_status = true;
+                            } else {
+                                center_information[i].account_status = false;
+                            }
+                        }
+                        
+                        // Tra ve du lieu
+                        result({result: true, registrations: registration_information, cars: car_information, owners: owner_information, centers: center_information});
+                    })
+                    .catch((err) => {
+                        // Truong hop xay ra loi truy van co so du lieu thon tin tai khoan
+                        result({result: false, error: err.message});
+                    })
+                    
+                }
             })
             .catch((err) => {
                 // Truong hop xay ra loi truy van co so du lieu dang kiem, xe, chu so huu, don vi dang kiem
