@@ -3,7 +3,7 @@ import { useEffect, useState, React } from 'react';
 import axiosInstance from "functions/AxiosInstance";
 import Cookies from "js-cookie";
 import { Button, FormGroup, Input, Col, Form, Card, CardBody, CardTitle } from 'reactstrap';
-import {isDateBeforeToday } from "functions/calculateDate";
+import { isDateBeforeToday } from "functions/calculateDate";
 
 function CarInfomation() {
   const { carPlate } = useParams();
@@ -50,9 +50,13 @@ function CarInfomation() {
     setDateRegistered(response.data.car.date_registered)
     setPurposeOfUse(response.data.car.purpose_of_use)
     setLastDateExpired(response.data.date_expired)
-    isDateBeforeToday(response.data.date_expired) ?
-      setStatus("Hết hạn")
-      : setStatus("Chưa hết hạn")
+    if (response.data.date_expired != false) {
+      isDateBeforeToday(response.data.date_expired) ?
+        setStatus("Hết hạn")
+        : setStatus("Chưa hết hạn")
+    } else {
+      setStatus("Chưa đăng kiểm")
+    }
 
     setOwnerName(response.data.owner.owner_name)
     setTypeOfOwnership(response.data.owner.type_of_ownership)
