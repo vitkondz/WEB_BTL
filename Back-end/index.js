@@ -36,12 +36,13 @@ require('./src/databaseUpdate/databaseUpdate.router')(app);
 require('./src/carInfoSearch/carInfoSearch.router')(app);
 require('./src/numberPlateInfo/numberPlateInfo.router')(app);
 require('./src/userAccountDelete/userAccountDelete.router')(app);
+require('./src/registryForecast/registryForecast.router')(app);
 
 app.listen(3010, async () => {
   console.log("Server running at http://localhost:3010/");
 });
 
-// const NDODatabase = require("./src/common/NDODatabase");
+
 // let timeFilter = require("./src/frontEndFunction/timeFilter");
 // let areaFilter = require("./src/frontEndFunction/areaFilter");
 // let nearlyExpiredFilter = require("./src/frontEndFunction/nearlyExpiredFilter");
@@ -50,12 +51,16 @@ app.listen(3010, async () => {
 //   "username": "admin",
 //   "password": "abc123"
 // }
+// let ownerSearch = require("./src/frontEndFunction/ownerSearch");
+// let carSearch = require("./src/frontEndFunction/carSearch");
+// let timeNumberFilter = require("./src/frontEndFunction/timeNumberFilter");
+// let timeListFilter = require("./src/frontEndFunction/timeListFilter");
 
 // fetch("http://localhost:3010/statistics/VN0000", {
 //   method: "GET",
 //   headers: {
 //     "Content-Type": "application/json",
-//     "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQvcW5rQ3ptLlY0dU0vQ0xta3o4dHpPSEJpdEJRaVVnaEF6SUJqRDQyNXZ3ZUNGaEVWTWxMbSJ9LCJpYXQiOjE2ODU4OTI5NzEsImV4cCI6MTY4NTg5NjU3MX0.ba_5Bk8VR46NW80CvSSmS5nwMl3lZ4fVrfONvLZ66R4",
+//     "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiYWRtaW4iLCJwYXNzd29yZCI6IiQyYiQxMCQvcW5rQ3ptLlY0dU0vQ0xta3o4dHpPSEJpdEJRaVVnaEF6SUJqRDQyNXZ3ZUNGaEVWTWxMbSJ9LCJpYXQiOjE2ODYzMDUwMTEsImV4cCI6MTY4NjMwODYxMX0.dK2xgTGpFV5XJJtwiFYzgq7s6DFr9mug6VJNuWBZXps",
 //   },
 // })
 // .then((response) => {
@@ -72,8 +77,16 @@ app.listen(3010, async () => {
 //       for (let i = 0; i < tam.length; i++) {
 //         console.log(tam[i].date_expired);
 //       }
-//       //console.log(data);
-//   }
+//       // let registrations = data.registrations;
+//       // for (let i = 0; i < 10; i++) {
+//       //   console.log(await carSearch(data.cars, registrations[i].registration_number));
+//       // }
+//       // console.log(await ownerSearch(data.owners, "3333"));
+//       // let tam = await timeNumberFilter(data.registrations, data.centers, 2020, false, false, false, false);
+//       // for (let i = 0; i < tam.length; i++) {
+//       //   console.log(tam[i]);
+//       // }
+//     }
 //   }
 // )
 // .catch((error) => {

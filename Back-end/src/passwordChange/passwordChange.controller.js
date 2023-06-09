@@ -1,6 +1,5 @@
 let passwordChangeModel = require('./passwordChange.model');
 
-
 exports.dataGet = async function (req, res) {
     // Lay du lieu tu request doi mat khau
     let data = await req.body;
