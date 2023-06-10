@@ -17,6 +17,7 @@ import Cookies from 'js-cookie';
 import axiosInstance from "functions/AxiosInstance";
 import areaFilter from 'functions/areaFilter';
 import getAreaByProvince from 'functions/getAreaByProvince';
+import capitalize from 'functions/captalized';
 
 function CreateAccount() {
   const [account, setAccount] = useState("");
@@ -59,9 +60,12 @@ function CreateAccount() {
       return false;
     }
   }
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Xử lý dữ liệu khi form được gửi đi
+    console.log(centerName);
     if (checkPassword()) {
       await axiosInstance({
         headers: {
@@ -153,7 +157,14 @@ function CreateAccount() {
                 <Input
                   id="center_name"
                   placeholder={centerName}
-                  onChange={(event) => { setCenterName(event.target.value) }}
+                  onChange={async (event) => {
+                    const capitalizedValue = await capitalize(event.target.value);
+                    setCenterName(capitalizedValue);
+                  }}
+                  onBlur={async (event) => {
+                    const capitalizedValue = await capitalize(event.target.value);
+                    event.target.value = capitalizedValue;
+                  }}
                   required
                 ></Input>
               </FormGroup>
@@ -198,7 +209,14 @@ function CreateAccount() {
                 id="address"
                 placeholder={address}
                 type="text"
-                onChange={(event) => { setAddress(event.target.value) }}
+                onChange={async (event) => {
+                  const capitalizedValue = await capitalize(event.target.value);
+                  setAddress(capitalizedValue);
+                }}
+                onBlur={async (event) => {
+                  const capitalizedValue = await capitalize(event.target.value);
+                  event.target.value = capitalizedValue;
+                }}
                 required
               ></Input>
             </FormGroup>
