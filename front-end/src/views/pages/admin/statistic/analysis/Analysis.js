@@ -18,7 +18,7 @@ export default function Analysis(props) {
 
   const [area, setArea] = useState(false)
   const [province, setProvince] = useState(false)
-  const [year, setYear] = useState(2022)
+  const [year, setYear] = useState(2023)
   const [center, setCenter] = useState(false)
 
   const [centerInfo, setCenterInfo] = useState([])

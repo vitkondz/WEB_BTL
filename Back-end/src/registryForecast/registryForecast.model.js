@@ -22,21 +22,21 @@ class RegistryForecast {
             let registries = res[0];
 
             // Loc thong tin dang kiem theo dau vao ma trung tam, tinh thanh, khu vuc
-            if (center_id !== false && center_id !== "VN0000") {
+            if (center_id !== false && center_id !== "VN0000" && center_id !== "") {
                 for (let i = 0; i < registries.length; i++) {
                     if (registries[i].center_id !== center_id) {
                         registries.splice(i, 1);
                         i--;
                     }
                 }
-            } else if (province !== false) {
+            } else if (province !== false  && province!== "") {
                 for (let i = 0; i < registries.length; i++) {
                     if (registries[i].province !== province) {
                         registries.splice(i, 1);
                         i--;
                     }
                 }
-            } else if (area !== false) {
+            } else if (area !== false  && area !== "") {
                 for (let i = 0; i < registries.length; i++) {
                     if (registries[i].area !== area) {
                         registries.splice(i, 1);
