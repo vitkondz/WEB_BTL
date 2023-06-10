@@ -30,7 +30,7 @@ CREATE TABLE `account_list` (
   PRIMARY KEY (`account`,`unit_id`),
   KEY `fk_unit_id` (`unit_id`),
   CONSTRAINT `fk_unit_id` FOREIGN KEY (`unit_id`) REFERENCES `center_information` (`center_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `car_information` (
   `owner_name` varchar(200) NOT NULL,
   `owner_id` varchar(50) NOT NULL,
   PRIMARY KEY (`registration_number`,`number_plate`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `center_information` (
   `email` varchar(100) NOT NULL,
   `address` varchar(500) NOT NULL,
   PRIMARY KEY (`center_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +119,7 @@ CREATE TABLE `owner_information` (
   `registration_number` varchar(50) NOT NULL,
   PRIMARY KEY (`registration_number`),
   CONSTRAINT `registration_number_owner` FOREIGN KEY (`registration_number`) REFERENCES `car_information` (`registration_number`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `registration_information` (
   PRIMARY KEY (`registry_code`),
   KEY `registration_number_registry` (`registration_number`),
   CONSTRAINT `registration_number_registry` FOREIGN KEY (`registration_number`) REFERENCES `car_information` (`registration_number`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
