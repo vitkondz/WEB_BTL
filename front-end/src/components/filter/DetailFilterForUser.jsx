@@ -56,7 +56,7 @@ export default function DetailFilterForUser(props) {
                 />
                 <Autocomplete
                     onInputChange={(event, newInputValue) => {
-                        props.setMonth(newInputValue);
+                        props.setMonth(+newInputValue);
 
                     }}
                     disablePortal

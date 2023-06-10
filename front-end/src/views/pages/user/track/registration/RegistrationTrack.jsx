@@ -7,6 +7,8 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap";
 import { useNavigate } from 'react-router-dom';
+import DetailFilterForUser from 'components/filter/DetailFilterForUser';
+import timeListFilter from 'functions/timeListFilter';
 
 function RegistrationTrack() {
   const [data, setData] = useState([]);
@@ -14,11 +16,19 @@ function RegistrationTrack() {
   const [dataOwner, setDataOwner] = useState([]);
   const [modal1, setModal1] = React.useState(false);
 
+  const [year, setYear] = useState(false)
+  const [quarter, setQuarter] = useState(false)
+  const [month, setMonth] = useState(false)
+
+  const [area, setArea] = useState(false)
+  const [province, setProvince] = useState(false)
+  const [center, setCenter] = useState(false)
+
   const navigate = useNavigate();
   // const [clickInfo, setClickInfo] = useState(null);
   useEffect(() => {
     getRegistration();
-  }, []);
+  }, [year, quarter, month]);
 
   const getRegistration = async () => {
     let response = await axiosInstance({
@@ -29,7 +39,7 @@ function RegistrationTrack() {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
     setData(response.data);
-    setDataRes(response.data.registrations);
+    setDataRes(await timeListFilter(response.data.registrations, response.data.center, year, quarter, month, center, province, area));
     console.log("check data", response.data.registrations);
   }
 
@@ -47,7 +57,7 @@ function RegistrationTrack() {
 
   const columns = [
     { field: "registry_code", headerName: "Mã đăng kiểm", width: 130, cursor: 'pointer' },
-    { field: "number_plate", headerName: "Biển xe", width: 130 },    
+    { field: "number_plate", headerName: "Biển xe", width: 130 },
     { field: "date_issued", headerName: "Ngày đăng ký", width: 130 },
     { field: "date_expired", headerName: "Ngày hết hạn", width: 130 },
     { field: "owner_name", headerName: "Chủ xe", width: 350, headerAlign: 'center' },
@@ -82,6 +92,11 @@ function RegistrationTrack() {
         <h4>
           Thống kê đăng kiểm bởi {JSON.parse(Cookies.get('info')).center_name}
         </h4>
+        <DetailFilterForUser
+          setYear={setYear}
+          setMonth={setMonth}
+          setQuarter={setQuarter}
+        />
       </div>
       <div style={{ height: 600, width: '100%' }}>
         <DataGrid
@@ -135,7 +150,7 @@ function RegistrationTrack() {
         </div>
       </Modal>
     </div>
-    
+
   )
 }
 
