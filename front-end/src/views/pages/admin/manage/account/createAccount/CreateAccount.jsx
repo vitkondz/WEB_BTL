@@ -8,14 +8,10 @@ import {
   FormGroup,
   Input,
   Button,
-  Label,
-  ListGroup, ListGroupItem,
-  InputGroup,
 } from "reactstrap";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axiosInstance from "functions/AxiosInstance";
-import areaFilter from 'functions/areaFilter';
 import getAreaByProvince from 'functions/getAreaByProvince';
 import capitalize from 'functions/captalized';
 
