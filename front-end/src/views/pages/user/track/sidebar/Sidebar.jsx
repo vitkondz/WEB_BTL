@@ -48,6 +48,12 @@ function Sidebar() {
                   Lượt đăng kiểm
                 </li>
               </NavLink>
+              <NavLink to="forecast" tag={Link} onClick={() => handleNavLinkClick()}>
+                <li className="sidebarListItem">
+                  <i className="sidebarIcon now-ui-icons education_atom"></i>
+                  Dự báo
+                </li>
+              </NavLink>
             </ul>
           </div>
         </div>
@@ -76,6 +82,10 @@ function Sidebar() {
           <DropdownItem to="registration" tag={Link} onClick={() => handleNavLinkClick()}>
             <i className="sidebarIcon now-ui-icons education_agenda-bookmark"></i>
             Lượt đăng kiểm
+          </DropdownItem>
+          <DropdownItem to="forecast" tag={Link} onClick={() => handleNavLinkClick()}>
+            <i className="sidebarIcon now-ui-icons education_atom"></i>
+            Dự báo
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>

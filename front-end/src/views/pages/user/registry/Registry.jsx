@@ -22,7 +22,7 @@ import axiosInstance from "functions/AxiosInstance";
 import getPlates from "functions/getPlates";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { formatDate, addMonthsToDate, isDateBeforeToday} from "functions/calculateDate";
+import { formatDate, addMonthsToDate, isDateBeforeToday } from "functions/calculateDate";
 
 function Registry() {
   const [listOfPlates, setListOfPlates] = useState([])
@@ -45,10 +45,12 @@ function Registry() {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [dateString, setDateString] = useState("")
+  const [dateExpire, setDateExpire] = useState(null)
   const [registryCode, setRegistryCode] = useState("");
   const [time, setTime] = useState(6)
 
   const [isValidInput, setIsValidInput] = useState(true);
+
   useEffect(() => {
     getRegistryCode();
     getListOfPlates();
@@ -77,11 +79,16 @@ function Registry() {
 
   useEffect(() => {
     handleDateChange(selectedDate);
+
     // console.log("haha");
   }, [selectedDate, time])
+
   const handleDateChange = (date) => {
     console.log(addMonthsToDate(formatDate(date), time))
     setDateString(addMonthsToDate(formatDate(date), time))
+    if (selectedDate !== null) {
+      setDateExpire(addMonthsToDate(formatDate(selectedDate), time))
+    }
     // setSelectedDate(date);
   };
 
@@ -169,7 +176,7 @@ function Registry() {
   }
 
   const checkValidInput = (newInputValue) => {
-    var result = listOfPlates.find(function(element) {
+    var result = listOfPlates.find(function (element) {
       return element.number_plate === newInputValue;
     })
     return result;
@@ -328,7 +335,7 @@ function Registry() {
         </Card>
       </div >
 
-      <Card>  
+      <Card>
         <CardBody>
           <CardTitle className="my-form-title">Đăng kiểm xe</CardTitle>
           <form onSubmit={handleSubmit}>
@@ -356,7 +363,16 @@ function Registry() {
                   <option>24 tháng</option>
                 </Input>
               </FormGroup>
-              <FormGroup className="col-md-5">
+              <FormGroup className="col-md-2">
+                <label htmlFor="registry_code">Ngày hết hạn dự tính</label>
+                <Input
+                  readOnly
+                  id=""
+                  placeholder={dateExpire}
+                  type="text"
+                ></Input>
+              </FormGroup>
+              <FormGroup className="col-md-2">
                 <label htmlFor="registry_code">Mã đăng kiểm</label>
                 <Input
                   readOnly

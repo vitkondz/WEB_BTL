@@ -32,13 +32,15 @@ export default function List() {
     })
     setData(await timeListFilter(response.data.registrations, response.data.center, year, quarter, month, center, province, area));
     console.log("check filter detail", await timeListFilter(response.data.registrations, response.data.center, year, quarter, month, center, province, area));
+    console.log("checkall", response.data);
   }
 
   const columns = [
     { field: "number_plate", headerName: "Biển xe", width: 115 },
-    { field: "car_name", headerName: "Hãng xe", width: 130 },
-    { field: "province", headerName: "Tỉnh thành", width: 115 },
+    { field: "date_issued", headerName: "Ngày đăng kiểm", width: 130 },
+    { field: "date_expired", headerName: "Hết hạn", width: 115 },
     { field: "owner_name", headerName: "Chủ xe", width: 315, headerAlign: 'center' },
+    { field: "center_name", headerName: "Nơi đăng kiểm", width: 315, headerAlign: 'center' },
     {
       field: "action",
       headerName: "",

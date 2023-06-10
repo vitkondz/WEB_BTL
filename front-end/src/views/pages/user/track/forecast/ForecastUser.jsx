@@ -1,6 +1,6 @@
 import React from 'react'
 import axiosInstance from 'functions/AxiosInstance';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import nearlyExpiredFilter from 'functions/nearlyExpiredFilter';
 import BieChart from 'components/chart/PieChart';
@@ -10,7 +10,7 @@ import {
   Button, Modal, ModalBody
 } from "reactstrap";
 
-const Forecast = () => {
+const ForecastUser = () => {
   const [data, setData] = useState([]);
   const [dataRegistration, setDataRegistration] = useState([]);
 
@@ -20,12 +20,12 @@ const Forecast = () => {
 
   const [dataForPie, setDataForPie] = useState([])
 
-  const [widthValue, setWidthValue] = useState([]);
-
   const [dataOwner, setDataOwner] = useState([])
   const [modal1, setModal1] = React.useState(false);
   const [dataCar, setDataCar] = useState([])
   const [modal2, setModal2] = React.useState(false);
+
+  const [widthValue, setWidthValue] = useState([]);
 
   useEffect(() => {
     getForecast();
@@ -45,10 +45,10 @@ const Forecast = () => {
       method: 'get',
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
+    //day la du lieu dang kiem het han, m xem lam cai bang nhe (hien bang nay nen co cot ngay het han). M lam ca cai bang xe het han cho trung tam nua nhe, copy y het
     setDataRegistration(await nearlyExpiredFilter(response.data.registrations));
     setData(response.data);
-    // console.log("exp", await nearlyExpiredFilter(response.data.registrations));
-    console.log("data", response.data);
+    // console.log(await nearlyExpiredFilter(response.data.registrations))
   }
 
   const getForecast = async () => {
@@ -66,10 +66,10 @@ const Forecast = () => {
     })
     console.log(response.data);
     let tmp = [
-      { name: "Đăng kiểm lại", value: response.data.re_Registrations },
-      { name: "Đăng kiểm mới", value: response.data.new_registrations },
+          { name: "Đăng kiểm lại", value: response.data.re_Registrations },
+          { name: "Đăng kiểm mới", value: response.data.new_registrations },
     ]
-    setDataForPie(tmp);
+    setDataForPie(tmp); 
   }
 
   const columns = [
@@ -98,20 +98,12 @@ const Forecast = () => {
 
   return (
     <div>
-      <h3>Dự báo lượng xe đăng kiểm mới và đăng kiểm lại</h3>
-      <ForecastFilter
-        setArea={setArea}
-        setProvince={setProvince}
-        setCenter={setCenter}
-      />
-      {/* <div>Check Area: {area}</div>
-      <div>Check Province: {province}</div>
-      <div>Check Center: {center}</div> */}
+      <h3>Dự báo xe đăng kiểm mới và đăng kiểm lại của {JSON.parse(Cookies.get('info')).center_name}</h3>
+
       <BieChart dataForPie={dataForPie} />
-
-
       <h3>Danh sách xe sắp hết hạn đăng kiểm</h3>
-      <div style={{height: 600, width: widthValue}} className='centerList'>
+
+      <div style={{height: 600, width: '100%'}} className='centerList'>
         <DataGrid
           rows={dataRegistration}
           columns={columns}
@@ -121,8 +113,6 @@ const Forecast = () => {
           onCellClick={handleOnCellClick}
         />
       </div>
-
-
       <Modal isOpen={modal1} toggle={() => setModal1(false)} className="modal-lg">
         <div className="modal-header justify-content-center">
           <h4 className="title title-up">
@@ -206,4 +196,4 @@ const Forecast = () => {
   )
 }
 
-export default Forecast
+export default ForecastUser

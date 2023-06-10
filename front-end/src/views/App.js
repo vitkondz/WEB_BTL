@@ -12,7 +12,6 @@ import Index from "views/pages/admin/Index";
 import Analysis from "views/pages/admin/statistic/analysis/Analysis";
 import List from "views/pages/admin/statistic/list/List";
 import Manage from "views/pages/admin/manage/Manage";
-import Center from "views/pages/admin/manage/centerList/Center";
 import Login from "views/pages/Login";
 import Statistic from "views/pages/admin/statistic/Statistic";
 import ProtectedRoute from "views/ProtectedRoute";
@@ -34,6 +33,7 @@ import PageNotFound from "./pages/PageNotFound";
 import IndexUser from "./pages/user/IndexUser";
 import CarInfo from "./pages/user/track/carList/carInfo/CarInfo";
 import CarInfomation from "./pages/admin/statistic/list/carInfomation/CarInfomation";
+import ForecastUser from "./pages/user/track/forecast/ForecastUser";
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -48,12 +48,12 @@ const App = () => {
               <Route index element={<Analysis />} />
               <Route path="analysis" element={<Analysis />} />
               <Route path="list" element={<List />} />
-              <Route path="list/:carPlate" element={<CarInfomation/>} />
+              <Route path="list/:carPlate" element={<CarInfomation />} />
               <Route path="forecast" element={<Forecast />} />
             </Route>
             <Route path="manage" element={<Manage />}>
+              <Route index element={<Account />} />
               <Route path="data" element={<CSV />} />
-              <Route path="center" element={<Center />} />
               <Route path="account" element={<Account />} />
               <Route path="create" element={<CreateAccount />} />
               <Route path="account/:centerId" element={<CenterInfo />} />
@@ -61,14 +61,15 @@ const App = () => {
           </Route>
           <Route element={<UserRoute />}>
             <Route path="track" element={<Track />}>
-              <Route index element={<IndexUser/>}/>
+              <Route index element={<IndexUser />} />
               <Route path="analysis" element={<AnalysisUser />} />
               <Route path="carlist" element={<CarList />} />
-              <Route path="carlist/:carPlate" element={<CarInfo/>} />
+              <Route path="carlist/:carPlate" element={<CarInfo />} />
               <Route path="registration" element={<RegistrationTrack />} />
+              <Route path="forecast" element={<ForecastUser />} />
             </Route>
             <Route path="registry" element={<Registry />} />
-            <Route path="info" element={<InfoUser/>} />
+            <Route path="info" element={<InfoUser />} />
           </Route>
 
         </Route>
@@ -78,7 +79,7 @@ const App = () => {
           path="/login"
           element={<Login />}
         />
-        <Route path='*' element={<PageNotFound/>} />
+        <Route path='*' element={<PageNotFound />} />
       </Routes>
     </BrowserRouter >
   )

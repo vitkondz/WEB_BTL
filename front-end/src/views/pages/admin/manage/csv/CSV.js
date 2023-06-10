@@ -82,7 +82,8 @@ function CSV() {
 
   return (
     <div>
-      <p>Upload File CSV</p>
+      <h3>Upload file danh sách các ô tô đã qua đăng ký</h3>
+      <h4>Định dạng file: .csv</h4>
       <input type="file" onChange={handleFileUpload} accept=".csv" />
       {/* <ProgressBar /> */}
       <Button

@@ -8,6 +8,9 @@ import getAreaByProvince from 'functions/getAreaByProvince';
 
 function CenterInfo() {
   const { centerId } = useParams();
+
+  const [data, setData] = useState([]);
+
   const navigate = useNavigate();
   const [showEdit, setShowEdit] = useState(false);
   const [showChangePw, setShowChangePw] = useState(false);
@@ -21,14 +24,12 @@ function CenterInfo() {
   const [centerName, setCenterName] = useState("")
   const [centerID, setCenterID] = useState("")
   const [province, setProvince] = useState("")
-  const [area, setArea] = useState("")
   const [address, setAddress] = useState("")
-
-  const [data, setData] = useState([]);
+  
   useEffect(() => {
     getCenterInfo();
   }, [centerId]);
-
+  const [area, setArea] = useState(data);
   const getCenterInfo = async () => {
     let response = await axiosInstance({
       headers: {
@@ -42,6 +43,8 @@ function CenterInfo() {
 
     setData(data0);
   }
+
+  
 
   console.log("checkdata", data);
 
@@ -107,6 +110,25 @@ function CenterInfo() {
 
   }
 
+  const handleDelete = async (e) => {
+    alert("Xóa tài khoản trung tâm?");
+    // e.preventDefault();
+    // await axiosInstance({
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   method: 'put',
+    //   url: `http://localhost:3010/user/account/delete/${JSON.parse(Cookies.get('info')).center_id}`,
+    //   data: {
+    //     'unit_id' : centerID
+    //   }
+    // }).then(() => {
+    //   alert("Xóa tài khoản thành công");
+    //   navigate(-1);
+    // })
+    // console.log("delete", response)
+  }
+
 
   return (
     <div className='centerInfo'>
@@ -155,7 +177,7 @@ function CenterInfo() {
               Đổi mật khẩu
             </Button><br />
             <Button className="btn-round" color="primary" type="button"
-              onClick={() => alert("Confirm delete account")}
+              onClick={() => handleDelete()}
             >
               <i className="now-ui-icons objects_key-25 iconPos"></i>
               Xóa tài khoản
@@ -173,7 +195,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      placeholder={data.center_name}
+                      defaultValue={data.center_name}
                       type="text"
                       onChange={(event) => { setCenterName(event.target.value) }}
                     ></Input>
@@ -184,7 +206,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      placeholder={data.center_id}
+                      defaultValue={data.center_id}
                       type="text"
                       onChange={(event) => { setCenterID(event.target.value) }}
                     ></Input>
@@ -209,7 +231,7 @@ function CenterInfo() {
                     <Input
                       required
                       readOnly
-                      placeholder={area}
+                      defaultValue={area}
                       type="text"
                     ></Input>
                   </FormGroup>
@@ -219,7 +241,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      placeholder={data.contact_number}
+                      defaultValue={data.contact_number}
                       type="text"
                       onChange={(event) => { setPhone(event.target.value) }}
                     ></Input>
@@ -230,7 +252,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      placeholder={data.email}
+                      defaultValue={data.email}
                       type="email"
                       onChange={(event) => { setEmail(event.target.value) }}
                     ></Input>
@@ -241,7 +263,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      placeholder={data.address}
+                      defaultValue={data.address}
                       type="text"
                       onChange={(event) => { setAddress(event.target.value) }}
                     ></Input>

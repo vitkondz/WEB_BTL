@@ -26,11 +26,15 @@ function MainHeader() {
       <div
         className="page-header clear-filter page-header-small"
         filter-color="blue"
+        style={{
+          height: "1500px",
+          maxHeight: "1000px"
+        }}
       >
         <div
           className="page-header-image"
           style={{
-            backgroundImage: "url(" + require("assets/img/bg_cdc2.jpeg") + ")"
+            backgroundImage: "url(" + require("assets/img/bg_cdc2.jpeg") + ")",
           }}
           ref={pageHeader}
         ></div>

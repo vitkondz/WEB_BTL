@@ -35,12 +35,6 @@ function Sidebar() {
                   Dữ liệu
                 </li>
               </NavLink>
-              <NavLink to="center" tag={Link}>
-                <li className="sidebarListItem">
-                  <i className="sidebarIcon now-ui-icons business_badge"></i>
-                  Trung tâm
-                </li>
-              </NavLink>
               <NavLink to="account" tag={Link}>
                 <li className="sidebarListItem">
                   <i className="sidebarIcon now-ui-icons users_single-02"></i>
@@ -67,10 +61,6 @@ function Sidebar() {
           <DropdownItem to="data" tag={Link} onClick={() => handleNavLinkClick()}>
             <i className="sidebarIcon now-ui-icons arrows-1_cloud-upload-94"></i>
             Dữ liệu
-          </DropdownItem>
-          <DropdownItem to="center" tag={Link} onClick={() => handleNavLinkClick()}>
-            <i className="sidebarIcon now-ui-icons business_badge"></i>
-            Trung tâm
           </DropdownItem>
           <DropdownItem to="account" tag={Link} onClick={() => handleNavLinkClick()}>
             <i className="sidebarIcon now-ui-icons users_single-02"></i>

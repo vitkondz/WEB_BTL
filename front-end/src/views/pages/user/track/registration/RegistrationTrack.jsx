@@ -58,31 +58,9 @@ function RegistrationTrack() {
   const columns = [
     { field: "registry_code", headerName: "Mã đăng kiểm", width: 130, cursor: 'pointer' },
     { field: "number_plate", headerName: "Biển xe", width: 130 },
-    { field: "date_issued", headerName: "Ngày đăng ký", width: 130 },
+    { field: "date_issued", headerName: "Ngày đăng kiểm", width: 150 },
     { field: "date_expired", headerName: "Ngày hết hạn", width: 130 },
     { field: "owner_name", headerName: "Chủ xe", width: 350, headerAlign: 'center' },
-
-    // {
-    //   field: "action",
-    //   headerName: "",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     return (
-    //       <div>
-
-    //         <Button
-    //           className="btn-round"
-    //           color="info"
-    //           type="button"
-    //           tag={Link}
-    //         >
-    //           Chi tiết
-    //         </Button>
-
-    //       </div>
-    //     )
-    //   }
-    // }
   ];
 
 

@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom"
 
 
 import MainNavbar from "components/Navbars/MainNavbar";
+import TransparentFooter from "components/Footer/TransparentFooter";
 
 function Index() {
   return (
     <div>
       <MainNavbar />
+      <TransparentFooter/>
     </div>
 
   )
