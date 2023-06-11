@@ -59,7 +59,7 @@ const ForecastUser = () => {
       method: 'post',
       url: `http://localhost:3010/registry/forecast`,
       data: {
-        center_id: center,
+        center_id: JSON.parse(Cookies.get('info')).center_id,
         province: province,
         area: area
       }
@@ -98,7 +98,7 @@ const ForecastUser = () => {
 
   return (
     <div>
-      <h3>Dự báo xe đăng kiểm mới và đăng kiểm lại của {JSON.parse(Cookies.get('info')).center_name}</h3>
+      <h3>Dự báo xe đăng kiểm mới và đăng kiểm lại của {JSON.parse(Cookies.get('info')).center_name} trong tháng tới</h3>
 
       <BieChart dataForPie={dataForPie} />
       <h3>Danh sách xe sắp hết hạn đăng kiểm</h3>

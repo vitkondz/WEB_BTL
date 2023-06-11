@@ -98,7 +98,7 @@ const Forecast = () => {
 
   return (
     <div>
-      <h3>Dự báo lượng xe đăng kiểm mới và đăng kiểm lại</h3>
+      <h3>Dự báo lượng xe đăng kiểm mới và đăng kiểm lại trong tháng tới</h3>
       <ForecastFilter
         setArea={setArea}
         setProvince={setProvince}
