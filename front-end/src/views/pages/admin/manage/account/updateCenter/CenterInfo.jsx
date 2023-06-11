@@ -112,20 +112,16 @@ function CenterInfo() {
 
   const handleDelete = async (e) => {
     alert("Xóa tài khoản trung tâm?");
-    // e.preventDefault();
-    // await axiosInstance({
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: 'put',
-    //   url: `http://localhost:3010/user/account/delete/${JSON.parse(Cookies.get('info')).center_id}`,
-    //   data: {
-    //     'unit_id' : centerID
-    //   }
-    // }).then(() => {
-    //   alert("Xóa tài khoản thành công");
-    //   navigate(-1);
-    // })
+    await axiosInstance({
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: 'delete',
+      url: `http://localhost:3010/user/account/delete/${data.center_id}`,
+    }).then(() => {
+      alert("Xóa tài khoản thành công");
+      navigate(-1);
+    })
     // console.log("delete", response)
   }
 
