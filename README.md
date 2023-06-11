@@ -1,3 +1,15 @@
+## Members of group
+
+1. Vũ Việt Anh - 21020168
+2. Trần Ngọc Bách - 21020170
+3. Đỗ Thị Trang - 21021545
+4. Hoàng Minh Quang - 21021529
+
+
+
+
+
+
 ## Quick start
 
 1.  Download the project's zip
@@ -7,10 +19,5 @@
 4.  Run in terminal `npm start`.
 
 ## Note: 
-- Change password MySQL in "back-end/Project/src/common/NDODatabase.js" (Default: 12345678)
-- Run npm install in both frontend and backend (in folder /Project)
-
-
-## Documentation
-
-The documentation for the Now UI Kit React is hosted at our [website](https://demos.creative-tim.com/now-ui-kit-react/#/documentation/introduction?ref=nukr-github-readme).
+- Change password MySQL in "back-end/src/common/NDODatabase.js" (Default password: 12345678)
+- Run npm install in both frontend and backend
