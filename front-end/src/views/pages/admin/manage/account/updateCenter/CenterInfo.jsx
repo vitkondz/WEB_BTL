@@ -3,8 +3,9 @@ import { useParams, useNavigate, useAsyncError } from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
 import axiosInstance from "functions/AxiosInstance";
 import Cookies from "js-cookie";
-import { Button, FormGroup, Input, Col, Form } from 'reactstrap';
+import { Button, FormGroup, Input, Col, Form, Modal, ModalBody } from 'reactstrap';
 import getAreaByProvince from 'functions/getAreaByProvince';
+ 
 
 function CenterInfo() {
   const { centerId } = useParams();
@@ -26,6 +27,8 @@ function CenterInfo() {
   const [province, setProvince] = useState("")
   const [address, setAddress] = useState("")
   
+  const [modal1, setModal1] = useState(false);
+
   useEffect(() => {
     getCenterInfo();
   }, [centerId]);
@@ -111,7 +114,6 @@ function CenterInfo() {
   }
 
   const handleDelete = async (e) => {
-    alert("Xóa tài khoản trung tâm?");
     await axiosInstance({
       headers: {
         "Content-Type": "application/json",
@@ -173,7 +175,7 @@ function CenterInfo() {
               Đổi mật khẩu
             </Button><br />
             <Button className="btn-round" color="primary" type="button"
-              onClick={() => handleDelete()}
+              onClick={() => setModal1(true)}
             >
               <i className="now-ui-icons objects_key-25 iconPos"></i>
               Xóa tài khoản
@@ -331,7 +333,34 @@ function CenterInfo() {
 
       </div>
 
-
+      <Modal isOpen={modal1} toggle={() => setModal1(false)} className="modal-md">
+        <div className="modal-header justify-content-center">
+          <h4 className="title title-up">
+            Xác nhận xóa tài khoản Trung tâm
+          </h4>
+        </div>
+        <ModalBody>
+          <div>
+           
+          </div>
+        </ModalBody>
+        <div className="modal-footer">
+        <Button
+            color="danger"
+            type="button"
+            onClick={() => {setModal1(false); handleDelete()}}
+          >
+            Xóa
+          </Button>
+          <Button
+            color="info"
+            type="button"
+            onClick={() => setModal1(false)}
+          >
+            Hủy
+          </Button>
+        </div>
+      </Modal>
 
     </div>
   )
