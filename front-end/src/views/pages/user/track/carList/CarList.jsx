@@ -15,7 +15,6 @@ function CarList() {
   const [dataOwner, setDataOwner] = useState([])
   const [modal1, setModal1] = React.useState(false);
 
-  const [clickInfo, setClickInfo] = useState(null);
   useEffect(() => {
     getCar();
 
@@ -36,7 +35,6 @@ function CarList() {
 
   const handleOnCellClick = (params) => {
     if (params.field === 'owner_name') {
-      setClickInfo(params);
       setModal1(true);
       let owner = data.owners.find((owners) => owners.owner_id === params.row.owner_id);
       setDataOwner(owner);
