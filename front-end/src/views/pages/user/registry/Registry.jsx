@@ -3,6 +3,9 @@ import FixedNavbarUser from "components/Navbars/FixedNavbarUser";
 import './Registry.css'
 import { useState } from "react";
 
+import { PDFExport, savePDF } from '@progress/kendo-react-pdf'
+import { useRef } from 'react'
+
 import {
   Card,
   CardBody,
@@ -11,8 +14,8 @@ import {
   FormGroup,
   Input,
   Button,
-  Label,
-  ListGroup, ListGroupItem,
+  Modal,
+  ModalBody,
   InputGroup,
 } from "reactstrap";
 import DatePicker from 'react-datepicker';
@@ -50,6 +53,13 @@ function Registry() {
   const [time, setTime] = useState(6)
 
   const [isValidInput, setIsValidInput] = useState(true);
+  const [modal1, setModal1] = React.useState(false);
+
+  const pdfExportComponent = useRef(null);
+  const handleExportWithComponent = (event) => {
+    pdfExportComponent.current.save();
+  }
+
 
   useEffect(() => {
     getRegistryCode();
@@ -89,7 +99,7 @@ function Registry() {
     if (selectedDate !== null) {
       setDateExpire(addMonthsToDate(formatDate(selectedDate), time))
     }
-    // setSelectedDate(date);
+    // console.log("sd", formatDate(selectedDate));
   };
 
   const getListOfPlates = async () => {
@@ -150,6 +160,7 @@ function Registry() {
     }
   }
   const handleSubmit = async (e) => {
+    setModal1(true);
     e.preventDefault();
 
     let response = await axiosInstance({
@@ -171,7 +182,7 @@ function Registry() {
       }
     })
       .then(() => {
-        window.location.reload();
+        // window.location.reload();
       })
   }
 
@@ -347,7 +358,10 @@ function Registry() {
                     selected={selectedDate}
                     // onChange={(event) => setSelectedDate(event.target.value)}
                     // onChange={handleDateChange}
-                    onChange={setSelectedDate}
+                    onChange={
+                      setSelectedDate
+                      // setDateNewRegistry(selectedDate.getDate() + "/" + selectedDate.getMonth() + "/" + selectedDate.getFullYear())
+                    }
                     dateFormat="dd/MM/yyyy"
                     className="form-control"
                     placeholderText="dd/mm/yyyy"
@@ -391,6 +405,73 @@ function Registry() {
           </form>
         </CardBody>
       </Card >
+
+      <Modal isOpen={modal1} toggle={() => setModal1(false)} className="modal-lg">
+        <div className="modal-header justify-content-center">
+          <h4 className="title title-up">
+            ĐĂNG KIỂM THÀNH CÔNG
+          </h4>
+        </div>
+        <ModalBody>
+          <PDFExport ref={pdfExportComponent} paperSize="A4" >
+            <h5 className="title justify-content-center">MINISTRY OF TRANSPORT</h5>
+            <h4 className="title justify-content-center">REGISTRATION CERTIFICATE</h4>
+            <div style={{ fontSize: "17px", paddingLeft: "100px" }}>REGISTRATION INFOMATION
+              <div className="infoLine" style={{ fontSize: "15px" }}>
+                Number plate: <span className='data'>{numberPlate}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px" }}>
+                Registration code: <span className='data'>{registrationNumber}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px" }}>
+                Car name: <span className='data'>{carName}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px" }}>
+                Brand: <span className='data'>{brand}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px" }}>
+                Province: <span className='data'>{province}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px"}}>
+                Owner ID: <span className='data'>{ownerId}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px", fontWeight: "bold"}}>
+                Registry date: <span className='data'>{formatDate(selectedDate)}</span>
+              </div>
+              <div className="infoLine" style={{ fontSize: "15px", fontWeight: "bold"}}>
+                Expire date: <span className='data'>{dateExpire}</span>
+              </div>
+              
+            </div>
+            <div className="d-flex flex-column justify-content-end">
+              <div className="d-flex justify-content-center font-weight-bold font-italic mt-5">Center Director</div> 
+              <div className="d-flex justify-content-center">Signed</div>
+            </div>
+          </PDFExport>
+
+
+
+        </ModalBody>
+        <div className="modal-footer">
+          <Button
+            color="info"
+            type="button"
+            onClick={handleExportWithComponent}
+          >
+            Xuất giấy chứng nhận đăng kiểm
+          </Button>
+          <Button
+            color="danger"
+            type="button"
+            onClick={() => {
+              setModal1(false);
+              window.location.reload() 
+            }}
+          >
+            Close
+          </Button>
+        </div>
+      </Modal>
     </>
   )
 }

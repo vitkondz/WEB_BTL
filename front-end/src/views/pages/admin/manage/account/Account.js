@@ -26,6 +26,7 @@ function Account() {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
     setData(response.data.center);
+    console.log("check", response.data);
   }
 
   const columns = [
@@ -42,14 +43,24 @@ function Account() {
       headerName: "",
       width: 150,
       renderCell: (params) => {
+        console.log("pr", params.row.center_id);
         return (
           <div className='detailModal'>
-            <NavLink to={"/manage/account/" + params.row.center_id} tag={Link}>
-              <Button className="btn-round" color="info" type="button">
-                Cập nhật
-              </Button>
-            </NavLink>
-          </div>
+            {params.row.account_status &&
+              <NavLink to={"/manage/account/" + params.row.center_id} tag={Link}>
+                <Button className="btn-round" color="info" type="button">
+                  Cập nhật
+                </Button>
+              </NavLink>
+            }
+            {!params.row.account_status &&
+              <NavLink>
+                <Button className="btn-round" color="danger" type="button">
+                  Cập nhật
+                </Button>
+              </NavLink>
+            }
+          </div >
         )
       }
     }
@@ -62,11 +73,11 @@ function Account() {
         <h2>
           Quản lý tài khoản
           <span>
-              <Button className="btn-round createButton" color="info" type="button"
-                to="/manage/create" tag={Link}
-              >
+            <Button className="btn-round createButton" color="info" type="button"
+              to="/manage/create" tag={Link}
+            >
               Cấp tài khoản
-            </Button>            
+            </Button>
           </span>
         </h2>
 
