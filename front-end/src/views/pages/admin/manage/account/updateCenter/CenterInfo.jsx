@@ -192,8 +192,8 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      defaultValue={data.center_name}
-                      type="text"
+                      placeholder={data.center_name.slice(20)}
+                      type="text" 
                       onChange={(event) => { setCenterName(event.target.value) }}
                     ></Input>
                   </FormGroup>
@@ -203,7 +203,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      defaultValue={data.center_id}
+                      placeholder={data.center_id}
                       type="text"
                       onChange={(event) => { setCenterID(event.target.value) }}
                     ></Input>
@@ -228,7 +228,7 @@ function CenterInfo() {
                     <Input
                       required
                       readOnly
-                      defaultValue={area}
+                      placeholder={area}
                       type="text"
                     ></Input>
                   </FormGroup>
@@ -238,7 +238,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      defaultValue={data.contact_number}
+                      placeholder={data.contact_number}
                       type="text"
                       onChange={(event) => { setPhone(event.target.value) }}
                     ></Input>
@@ -249,7 +249,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      defaultValue={data.email}
+                      placeholder={data.email}
                       type="email"
                       onChange={(event) => { setEmail(event.target.value) }}
                     ></Input>
@@ -260,7 +260,7 @@ function CenterInfo() {
                   <FormGroup>
                     <Input
                       required
-                      defaultValue={data.address}
+                      placeholder={data.address}
                       type="text"
                       onChange={(event) => { setAddress(event.target.value) }}
                     ></Input>
@@ -292,7 +292,6 @@ function CenterInfo() {
                   <div className="label">Mật khẩu cũ</div>
                   <FormGroup>
                     <Input
-                      defaultValue=""
                       placeholder="Enter old password"
                       type="password"
                       onChange={(event) => setOldPassword(event.target.value)}
@@ -303,7 +302,6 @@ function CenterInfo() {
                   <div className="label">Mật khẩu mới</div>
                   <FormGroup>
                     <Input
-                      defaultValue=""
                       placeholder="Enter new password"
                       type="password"
                       onChange={(event) => setNewPassword(event.target.value)}
@@ -314,7 +312,6 @@ function CenterInfo() {
                   <div className="label">Nhập mật khẩu mới</div>
                   <FormGroup>
                     <Input
-                      defaultValue=""
                       placeholder="Re-enter new password"
                       type="password"
                       onChange={(event) => setRepeatPassword(event.target.value)}
