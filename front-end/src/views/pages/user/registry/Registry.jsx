@@ -111,10 +111,7 @@ function Registry() {
       url: `http://localhost:3010/numberPlate/getAll`,
 
     })
-    // console.log(((response.data.result[0].number_plate)))
     setListOfPlates(response.data.result);
-    // console.log("check1", response.data.result);
-    // console.log(await listOfPlates)
   }
   const handleDisplay = async () => {
     console.log(isValidInput);
@@ -182,7 +179,6 @@ function Registry() {
       }
     })
       .then(() => {
-        // window.location.reload();
       })
   }
 

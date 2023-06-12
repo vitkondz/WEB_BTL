@@ -6,10 +6,8 @@ import axiosInstance from 'functions/AxiosInstance';
 import {
   Button, Modal, ModalBody
 } from "reactstrap";
-import { useNavigate } from 'react-router-dom';
 
 function CarList() {
-  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [dataCar, setDataCar] = useState([]);
   const [dataOwner, setDataOwner] = useState([])

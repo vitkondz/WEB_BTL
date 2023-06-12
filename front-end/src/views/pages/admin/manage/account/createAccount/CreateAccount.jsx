@@ -220,7 +220,6 @@ function CreateAccount() {
               color="info"
               className="btn-round"
               type="submit"
-            // onClick={(e) => handleSubmit(e)}
             >
               Tạo
             </Button>

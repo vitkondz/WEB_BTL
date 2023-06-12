@@ -1,5 +1,5 @@
 import "./CenterInfo.css";
-import { useParams, useNavigate, useAsyncError } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
 import axiosInstance from "functions/AxiosInstance";
 import Cookies from "js-cookie";
@@ -124,7 +124,6 @@ function CenterInfo() {
       alert("Xóa tài khoản thành công");
       navigate(-1);
     })
-    // console.log("delete", response)
   }
 
 

@@ -25,7 +25,6 @@ function RegistrationTrack() {
   const [center, setCenter] = useState(false)
 
   const navigate = useNavigate();
-  // const [clickInfo, setClickInfo] = useState(null);
   useEffect(() => {
     getRegistration();
   }, [year, quarter, month]);

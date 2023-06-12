@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import csvtojson from 'csvtojson';
 import './CSV.css';
 import axiosInstance from 'functions/AxiosInstance';
-import ProgressBar from 'components/ProgressBar/ProgressBar';
-import { Button, Alert, Progress } from 'reactstrap';
+import { Button, Progress } from 'reactstrap';
 function CSV() {
-  const [data, setData] = useState([])
   let processingData = [];
-  const [isUploadSuccess, setIsUploadSuccess] = useState(false);
   const [progressValue, setProgressValue] = useState(0); // Giá trị mặc định là 60
   const [progressBar, setProgressBar] = useState(false)
 
@@ -36,10 +33,6 @@ function CSV() {
         .then((res) => {
           console.log(res.data.result);
           setProgressValue((prevValue) => prevValue + 10)
-          // setIsUploadSuccess(true);
-          // setTimeout(() => {
-          //   setIsUploadSuccess(false);
-          // }, 3000);
         })
       tmp = [];
     }
@@ -62,18 +55,7 @@ function CSV() {
 
         // Use the JSON data as needed
         processingData = jsonData
-        console.log(processingData);
-        // axiosInstance({
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   method: 'post',
-        //   url: 'http://localhost:3010/database/update',
-        //   data: data,
-        // })
-        //   .then((res) => {
-        //     console.log(res.data.result);
-        //   })
+
       };
 
       fileReader.readAsText(file);
@@ -85,7 +67,6 @@ function CSV() {
       <h3>Upload file danh sách các ô tô đã qua đăng ký</h3>
       <h4>Định dạng file: .csv</h4>
       <input type="file" onChange={handleFileUpload} accept=".csv" />
-      {/* <ProgressBar /> */}
       <Button
         color="info"
         className="btn-round"
@@ -93,13 +74,6 @@ function CSV() {
         onClick={() => { handleSubmit(); setProgressBar(true) }}>
         Upload
       </Button>
-      {/* <div>
-        {isUploadSuccess && (
-          <Alert color="success">
-            File uploaded successfully!
-          </Alert>
-        )}
-      </div> */}
       {progressBar &&
         <div className="progress-container progress-success">
           <span className="progress-badge">Đang tải lên</span>

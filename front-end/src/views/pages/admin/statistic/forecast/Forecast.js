@@ -47,8 +47,6 @@ const Forecast = () => {
     })
     setDataRegistration(await nearlyExpiredFilter(response.data.registrations));
     setData(response.data);
-    // console.log("exp", await nearlyExpiredFilter(response.data.registrations));
-    console.log("data", response.data);
   }
 
   const getForecast = async () => {
@@ -104,9 +102,6 @@ const Forecast = () => {
         setProvince={setProvince}
         setCenter={setCenter}
       />
-      {/* <div>Check Area: {area}</div>
-      <div>Check Province: {province}</div>
-      <div>Check Center: {center}</div> */}
       <BieChart dataForPie={dataForPie} />
 
 

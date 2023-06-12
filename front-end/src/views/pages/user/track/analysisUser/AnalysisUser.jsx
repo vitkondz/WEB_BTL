@@ -34,8 +34,6 @@ export default function AnalysisUser(props) {
 
     })
 
-    // console.log("check tinh", await filter(response.data.registrations, response.data.center, year, false, center, false, false));
-    // console.log(response.data.registrations)
     setMonthData(await filter(response.data.registrations, response.data.center, year, false, center, province, area));
     setQuarterData(await filter(response.data.registrations, response.data.center, year, true, center, province, area));
     setYearData(await filter(response.data.registrations, response.data.center, true, false, center, province, area));
@@ -48,12 +46,6 @@ export default function AnalysisUser(props) {
       <FilterForUser
         setYear={setYear}
       />
-
-      {/* <div>Check Area: {area}</div>
-      <div>Check Province: {province}</div>
-      <div>Check Year: {year}</div>
-      <div>Check Center: {center}</div> */}
-
 
       <div>
         <Chart year={year !== 0 ? year : ' '} data={monthData} title="Thống kê theo tháng" grid dataKey="quantity" kind="month" />

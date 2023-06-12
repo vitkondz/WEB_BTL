@@ -19,7 +19,6 @@ import {
   Col
 } from "reactstrap";
 
-// core components
 const Login = () => {
   const [firstFocus, setFirstFocus] = React.useState(false);
   const [lastFocus, setLastFocus] = React.useState(false);
@@ -46,10 +45,8 @@ const Login = () => {
       .then(res => {
 
         if (res.data.result !== false) {
-          // console.log(res.data.result);
           Cookies.set('jwt', res.data.result);
           Cookies.set('info', JSON.stringify(res.data.centerInfo));
-          // console.log(JSON.parse(Cookies.get('info')).center_id);
           if (JSON.parse(Cookies.get('info')).type_of_account === 'admin') {
             navigate('/');
           } else {
@@ -59,7 +56,7 @@ const Login = () => {
 
         }
         else {
-          alert("wrong info");
+          alert("Tên đăng nhập hoặc mật khẩu không đúng!");
         }
 
       })

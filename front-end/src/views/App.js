@@ -35,7 +35,6 @@ import CarInfo from "./pages/user/track/carList/carInfo/CarInfo";
 import CarInfomation from "./pages/admin/statistic/list/carInfomation/CarInfomation";
 import ForecastUser from "./pages/user/track/forecast/ForecastUser";
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const App = () => {
   return (

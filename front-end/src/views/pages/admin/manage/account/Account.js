@@ -26,7 +26,6 @@ function Account() {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
     setData(response.data.center);
-    console.log("check", response.data);
   }
 
   const columns = [

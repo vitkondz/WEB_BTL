@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import nearlyExpiredFilter from 'functions/nearlyExpiredFilter';
 import BieChart from 'components/chart/PieChart';
-import ForecastFilter from 'components/filter/ForecastFilter';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import {
   Button, Modal, ModalBody
@@ -45,10 +44,8 @@ const ForecastUser = () => {
       method: 'get',
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
-    //day la du lieu dang kiem het han, m xem lam cai bang nhe (hien bang nay nen co cot ngay het han). M lam ca cai bang xe het han cho trung tam nua nhe, copy y het
     setDataRegistration(await nearlyExpiredFilter(response.data.registrations));
     setData(response.data);
-    // console.log(await nearlyExpiredFilter(response.data.registrations))
   }
 
   const getForecast = async () => {
