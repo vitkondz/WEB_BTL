@@ -5,9 +5,13 @@
 3. Đỗ Thị Trang - 21021545
 4. Hoàng Minh Quang - 21021529
 
+# Công việc trong dự án
+- Vũ Việt Anh: bố cục web, phân loại và điều hướng router, giao diện frontend: navbar, quản lý thông tin trung tâm, đổi mật khẩu, bảng danh sách xe, danh sách đăng kiểm, giao diện responsive,  xuất file chứng nhận đăng kiểm, …
+- Trần Ngọc Bách: gửi request tới backend (gọi API), table, chart phân tích dữ liệu, xử lý nhập liệu (gợi ý nhập liệu), bộ lọc(filter), login phân quyền, bảo vệ route (protected route, xử lý jwt hết hạn ở phía frontend), làm việc với cookie, xác thực đăng nhập (phía frontend), upload file csv, …
+- Đỗ Thị Trang: giao diện frontend, tin tức, thông tin, thông tin trung tâm, chỉnh sửa; xử lý nhập liệu: kiểm tra hợp thức, tự động điền, chuyển đổi, …    
+- Hoàng Minh Quang: Backend API, Thiết kế CSDL, An ninh: xác thực, quản lý phiên,… (phía back-end), viết hàm lọc theo trung tâm, tỉnh thành, khu vực, thời gian, lọc xe sắp hết hạn, hàm tìm kiếm xe, chủ sở hữu, trung tâm (front-end), …
 
-
-
+# Github: https://github.com/vitkondz/WEB_BTL
 
 
 ## Quick start
