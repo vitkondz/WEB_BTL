@@ -44,7 +44,7 @@ async function timeListFilter(registration_information, center_information, year
         }
     }
     
-    if (year !== false && year !== "") {
+    if (year !== false && year !== "" && year !== 0) {
         for (let i = 0; i < registrations.length; i++) {
             let m = parseInt(registrations[i].date_issued.slice(3, 5));
             let y = parseInt(registrations[i].date_issued.slice(6, 10));
@@ -55,7 +55,7 @@ async function timeListFilter(registration_information, center_information, year
             }
             else {
                 let deleted = false;
-                if (quarter !== false && quarter !== "") {
+                if (quarter !== false && quarter !== "" && quarter !== 0) {
                     let q = await getQuarter(m);
                     if (q !== quarter) {
                         registrations.splice(i, 1);
@@ -63,7 +63,7 @@ async function timeListFilter(registration_information, center_information, year
                         deleted = true;
                     }
                 }
-                if (!deleted && month !== false && month !== "") {
+                if (!deleted && month !== false && month !== "" && month !== 0) {
                     if (m !== month) {
                         registrations.splice(i, 1);
                         i--;

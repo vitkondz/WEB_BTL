@@ -55,7 +55,7 @@ function Account() {
             {!params.row.account_status &&
               <NavLink>
                 <Button className="btn-round" color="danger" type="button">
-                  Cập nhật
+                  Đã xóa
                 </Button>
               </NavLink>
             }

@@ -31,8 +31,10 @@ export default function List() {
       url: `http://localhost:3010/statistics/${JSON.parse(Cookies.get('info')).center_id}`,
     })
     setData(await timeListFilter(response.data.registrations, response.data.center, year, quarter, month, center, province, area));
+    console.log(year, " ", quarter, " ", month)
     console.log("check filter detail", await timeListFilter(response.data.registrations, response.data.center, year, quarter, month, center, province, area));
-    console.log("checkall", response.data);
+    console.log(center, " ", area, " ", province)
+    // console.log("checkall", response.data);
   }
 
   const columns = [
@@ -41,6 +43,7 @@ export default function List() {
     { field: "date_expired", headerName: "Hết hạn", width: 115 },
     { field: "owner_name", headerName: "Chủ xe", width: 315, headerAlign: 'center' },
     { field: "center_name", headerName: "Nơi đăng kiểm", width: 315, headerAlign: 'center' },
+    // { field: "registration_number", headerName: "Nơi đăng kiểm", width: 315, headerAlign: 'center' },
     {
       field: "action",
       headerName: "",
@@ -83,9 +86,9 @@ export default function List() {
       <DataGrid
         rows={data}
         columns={columns}
-        getRowId={(row) => row.registration_number}
         slots={{ toolbar: GridToolbar }}
         sx={{ overflowX: 'scroll' }}
+        getRowId={(row) => row.registration_number}
       />
     </div>
   );
